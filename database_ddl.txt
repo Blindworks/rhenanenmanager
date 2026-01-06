@@ -1,0 +1,1209 @@
+-- rhintern.address definition
+
+CREATE TABLE `address` (
+  `id` bigint(20) DEFAULT NULL,
+  `addon` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `street` varchar(255) DEFAULT NULL,
+  `zip` varchar(255) DEFAULT NULL,
+  `lat` double DEFAULT NULL,
+  `lon` double DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.ahsc definition
+
+CREATE TABLE `ahsc` (
+  `id` bigint(20) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.amt definition
+
+CREATE TABLE `amt` (
+  `id` bigint(20) DEFAULT NULL,
+  `funktion` varchar(255) DEFAULT NULL,
+  `gremium` varchar(100) DEFAULT NULL,
+  `sort_order` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.amt_history definition
+
+CREATE TABLE `amt_history` (
+  `id` bigint(20) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `amt_id` bigint(20) DEFAULT NULL,
+  `finish_type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.article_entry definition
+
+CREATE TABLE `article_entry` (
+  `id` bigint(20) DEFAULT NULL,
+  `alternativeAuthor` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `createdBy` varchar(255) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modifiedBy` varchar(255) DEFAULT NULL,
+  `month` int(11) DEFAULT NULL,
+  `page` int(11) DEFAULT NULL,
+  `title` longtext DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `text` text DEFAULT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
+  `created_by_id` bigint(20) DEFAULT NULL,
+  `modified_by_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.attendance definition
+
+CREATE TABLE `attendance` (
+  `id` bigint(20) DEFAULT NULL,
+  `event_id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `reminder` datetime DEFAULT NULL,
+  `reminder_sent` datetime DEFAULT NULL,
+  `accepted` datetime DEFAULT NULL,
+  `mandatory` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.bed definition
+
+CREATE TABLE `bed` (
+  `id` bigint(20) DEFAULT NULL,
+  `bookable` bit(1) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `restriction` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.bed_booking definition
+
+CREATE TABLE `bed_booking` (
+  `id` bigint(20) DEFAULT NULL,
+  `booking_date` datetime DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `bed_id` bigint(20) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.charge definition
+
+CREATE TABLE `charge` (
+  `id` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `semester` varchar(255) DEFAULT NULL,
+  `successful` bit(1) DEFAULT NULL,
+  `symbol` varchar(255) DEFAULT NULL,
+  `year` varchar(255) DEFAULT NULL,
+  `corpsData_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.`connection` definition
+
+CREATE TABLE `connection` (
+  `id` bigint(20) DEFAULT NULL,
+  `originalInfo` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `connected_profile_id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.contact definition
+
+CREATE TABLE `contact` (
+  `id` bigint(20) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `faxNumber` varchar(255) DEFAULT NULL,
+  `icqUsername` varchar(255) DEFAULT NULL,
+  `mobileNumber` varchar(255) DEFAULT NULL,
+  `msnUsername` varchar(255) DEFAULT NULL,
+  `skypeUsername` varchar(255) DEFAULT NULL,
+  `telephoneNumber` varchar(255) DEFAULT NULL,
+  `website` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.corps_data definition
+
+CREATE TABLE `corps_data` (
+  `id` bigint(20) DEFAULT NULL,
+  `acceptionDate` date DEFAULT NULL,
+  `klammerChargen` varchar(255) DEFAULT NULL,
+  `number` varchar(255) DEFAULT NULL,
+  `numberCorpsList` int(11) DEFAULT NULL,
+  `numberOfMensuren` int(11) DEFAULT NULL,
+  `numberOfReinigungen` int(11) DEFAULT NULL,
+  `oldPictureNumber` int(11) DEFAULT NULL,
+  `philistrierungDate` date DEFAULT NULL,
+  `quitDate` date DEFAULT NULL,
+  `quited` bit(1) DEFAULT NULL,
+  `receptionDate` date DEFAULT NULL,
+  `receptionNumber` int(11) DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `typeOfQuit` varchar(255) DEFAULT NULL,
+  `leibBursch_id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `status_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.corps_data_amt definition
+
+CREATE TABLE `corps_data_amt` (
+  `CorpsData_id` bigint(20) DEFAULT NULL,
+  `aemter_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.corps_data_fraternity definition
+
+CREATE TABLE `corps_data_fraternity` (
+  `CorpsData_id` bigint(20) DEFAULT NULL,
+  `otherFraternities_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.corps_data_profile definition
+
+CREATE TABLE `corps_data_profile` (
+  `CorpsData_id` bigint(20) DEFAULT NULL,
+  `leibFuechse_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.document definition
+
+CREATE TABLE `document` (
+  `id` bigint(20) DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `createdBy` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modifiedBy` varchar(255) DEFAULT NULL,
+  `month` int(11) DEFAULT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `summary` longtext DEFAULT NULL,
+  `title` longtext DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `downloads` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.employer definition
+
+CREATE TABLE `employer` (
+  `id` bigint(20) DEFAULT NULL,
+  `category` text DEFAULT NULL,
+  `department` text DEFAULT NULL,
+  `endDate` date DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `role` text DEFAULT NULL,
+  `startDate` date DEFAULT NULL,
+  `address_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.event definition
+
+CREATE TABLE `event` (
+  `id` bigint(20) DEFAULT NULL,
+  `cancelled` bit(1) DEFAULT NULL,
+  `enabled` bit(1) DEFAULT NULL,
+  `endDate` datetime DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `startDate` datetime DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `recurrent` varchar(50) DEFAULT NULL,
+  `recurrentDescription` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `location_link` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.external_attendance definition
+
+CREATE TABLE `external_attendance` (
+  `id` bigint(20) DEFAULT NULL,
+  `event_id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `accepted` datetime DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `gender` varchar(100) DEFAULT NULL,
+  `relation` varchar(100) DEFAULT NULL,
+  `applicant_attending` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.faulty_email definition
+
+CREATE TABLE `faulty_email` (
+  `id` bigint(20) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `text` text NOT NULL,
+  `faulty_send` datetime NOT NULL,
+  `successful_send` datetime DEFAULT NULL,
+  `replyTo` varchar(255) DEFAULT NULL,
+  `attachment_path` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.fee definition
+
+CREATE TABLE `fee` (
+  `id` bigint(20) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.forum_message definition
+
+CREATE TABLE `forum_message` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `parent_message_id` bigint(20) DEFAULT NULL,
+  `text` text NOT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `views` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.forum_message_voting definition
+
+CREATE TABLE `forum_message_voting` (
+  `id` bigint(20) DEFAULT NULL,
+  `voter_id` bigint(20) DEFAULT NULL,
+  `forum_message_id` bigint(20) DEFAULT NULL,
+  `positive_vote` bit(1) DEFAULT NULL,
+  `voting_time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.fraternity definition
+
+CREATE TABLE `fraternity` (
+  `id` bigint(20) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `governingBody` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.guest definition
+
+CREATE TABLE `guest` (
+  `id` bigint(20) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `attendance_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.information_card definition
+
+CREATE TABLE `information_card` (
+  `id` bigint(20) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `content` text NOT NULL,
+  `category` varchar(100) DEFAULT NULL,
+  `valid_from` datetime DEFAULT NULL,
+  `valid_to` datetime DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `created_by_id` bigint(20) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modified_by_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.interest definition
+
+CREATE TABLE `interest` (
+  `id` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.job definition
+
+CREATE TABLE `job` (
+  `id` bigint(20) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `creator_id` bigint(20) DEFAULT NULL,
+  `modified` datetime NOT NULL,
+  `start` date DEFAULT NULL,
+  `end` date DEFAULT NULL,
+  `direction` varchar(100) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `contact_id` bigint(20) DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.job_history definition
+
+CREATE TABLE `job_history` (
+  `id` bigint(20) DEFAULT NULL,
+  `employer` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.`language` definition
+
+CREATE TABLE `language` (
+  `id` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.mail_group definition
+
+CREATE TABLE `mail_group` (
+  `id` bigint(20) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `enabled` bit(1) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `identifier` varchar(255) DEFAULT NULL,
+  `restricted` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.mail_group_message definition
+
+CREATE TABLE `mail_group_message` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `text` text DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `medium` varchar(100) DEFAULT NULL,
+  `send_datetime` datetime NOT NULL,
+  `mail_group_id` bigint(20) DEFAULT NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `attachment_path` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.manuals definition
+
+CREATE TABLE `manuals` (
+  `id` bigint(20) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `publication_date` datetime NOT NULL,
+  `description` text DEFAULT NULL,
+  `enabled` bit(1) DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `author_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.match_protocol definition
+
+CREATE TABLE `match_protocol` (
+  `id` bigint(20) DEFAULT NULL,
+  `start_datetime` datetime DEFAULT NULL,
+  `end_datetime` datetime DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `last_Name` varchar(255) DEFAULT NULL,
+  `club` varchar(255) DEFAULT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  `partner_match_protocol_id` bigint(20) DEFAULT NULL,
+  `mensur_day_id` bigint(20) DEFAULT NULL,
+  `anhieb` bit(1) DEFAULT NULL,
+  `mensuren` int(11) DEFAULT NULL,
+  `reinigungen` int(11) DEFAULT NULL,
+  `geschwindigkeit` int(11) DEFAULT NULL,
+  `haerte` int(11) DEFAULT NULL,
+  `technik` int(11) DEFAULT NULL,
+  `sekundant` varchar(255) DEFAULT NULL,
+  `sekundant_id` bigint(20) DEFAULT NULL,
+  `terz` bit(1) DEFAULT NULL,
+  `hoch_quart` bit(1) DEFAULT NULL,
+  `horizontalQuart` bit(1) DEFAULT NULL,
+  `prim` bit(1) DEFAULT NULL,
+  `an_quart` bit(1) DEFAULT NULL,
+  `haken_quart` bit(1) DEFAULT NULL,
+  `quart_parade` bit(1) DEFAULT NULL,
+  `aussen_quart` bit(1) DEFAULT NULL,
+  `quart_schleife` bit(1) DEFAULT NULL,
+  `doppel_horizontal_quart` bit(1) DEFAULT NULL,
+  `doppel_terz` bit(1) DEFAULT NULL,
+  `hoch_quart_horizontal_quart` bit(1) DEFAULT NULL,
+  `hoch_quart_kipp_terz` bit(1) DEFAULT NULL,
+  `horizontal_quart_kipp_terz` bit(1) DEFAULT NULL,
+  `terz_finte` bit(1) DEFAULT NULL,
+  `roll_terz` bit(1) DEFAULT NULL,
+  `tief_terz` bit(1) DEFAULT NULL,
+  `spicker` bit(1) DEFAULT NULL,
+  `terz_abdrehen` int(11) DEFAULT NULL,
+  `terz_ueber_135` bit(1) DEFAULT NULL,
+  `hoch_quart_abdrehen` int(11) DEFAULT NULL,
+  `hoch_quart_flach` bit(1) DEFAULT NULL,
+  `horizontal_quart_flach` bit(1) DEFAULT NULL,
+  `horizontal_quart_unter_0` bit(1) DEFAULT NULL,
+  `bleibt_liegen` bit(1) DEFAULT NULL,
+  `wedelt` bit(1) DEFAULT NULL,
+  `deckung_hoch` int(11) DEFAULT NULL,
+  `deckung_links` int(11) DEFAULT NULL,
+  `faellt_nach_vorne` bit(1) DEFAULT NULL,
+  `vorsetzen_hoch_quart` int(11) DEFAULT NULL,
+  `vorsetzen_horizontal_quart` int(11) DEFAULT NULL,
+  `offen_auf_terz` bit(1) DEFAULT NULL,
+  `offen_auf_hoch_quart` bit(1) DEFAULT NULL,
+  `offen_auf_horizontal_quart` bit(1) DEFAULT NULL,
+  `offen_auf_aussen_quart` bit(1) DEFAULT NULL,
+  `agressiv` int(11) DEFAULT NULL,
+  `ueberstuerzt` int(11) DEFAULT NULL,
+  `hektisch` int(11) DEFAULT NULL,
+  `offensiv` bit(1) DEFAULT NULL,
+  `monoton` int(11) DEFAULT NULL,
+  `fluessig` int(11) DEFAULT NULL,
+  `lauernd` int(11) DEFAULT NULL,
+  `kondition` int(11) DEFAULT NULL,
+  `pausen` varchar(100) DEFAULT NULL,
+  `monita` varchar(100) DEFAULT NULL,
+  `finish` varchar(255) DEFAULT NULL,
+  `gaenge` int(11) DEFAULT NULL,
+  `blutige` int(11) DEFAULT NULL,
+  `nadeln` int(11) DEFAULT NULL,
+  `abstimmung` varchar(50) DEFAULT NULL,
+  `protokollant_id` bigint(20) DEFAULT NULL,
+  `finished` bit(1) DEFAULT NULL,
+  `geschwindigkeit_seen` int(11) DEFAULT NULL,
+  `haerte_seen` int(11) DEFAULT NULL,
+  `technik_seen` int(11) DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `side` varchar(100) DEFAULT NULL,
+  `tages_partie` int(11) DEFAULT NULL,
+  `abstimmung_sc` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.mensur definition
+
+CREATE TABLE `mensur` (
+  `id` bigint(20) DEFAULT NULL,
+  `mensur_date` date DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `finish` varchar(255) DEFAULT NULL,
+  `rounds` int(11) DEFAULT NULL,
+  `referee` varchar(255) DEFAULT NULL,
+  `ratio` varchar(255) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.mensur_day definition
+
+CREATE TABLE `mensur_day` (
+  `id` bigint(20) DEFAULT NULL,
+  `start_datetime` datetime NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `doctors` varchar(255) DEFAULT NULL,
+  `fight_datetime` datetime DEFAULT NULL,
+  `end_datetime` datetime DEFAULT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  `active` bit(1) DEFAULT NULL,
+  `start_info_mail_sent` bit(1) DEFAULT NULL,
+  `end_info_mail_sent` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.news definition
+
+CREATE TABLE `news` (
+  `id` bigint(20) DEFAULT NULL,
+  `category` varchar(100) DEFAULT NULL,
+  `teaser` varchar(255) DEFAULT NULL,
+  `text` text DEFAULT NULL,
+  `startDate` datetime NOT NULL,
+  `endDate` datetime DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `mainPage` bit(1) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `author_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.occured_practice_session definition
+
+CREATE TABLE `occured_practice_session` (
+  `id` bigint(20) DEFAULT NULL,
+  `planned_practice_session_id` bigint(20) DEFAULT NULL,
+  `start_date` datetime NOT NULL,
+  `day_of_week` varchar(100) DEFAULT NULL,
+  `conductor_id` bigint(20) DEFAULT NULL,
+  `trainer_session` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.occured_practice_session_attendance definition
+
+CREATE TABLE `occured_practice_session_attendance` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `occured_practice_session_id` bigint(20) DEFAULT NULL,
+  `late_minutes` int(11) DEFAULT NULL,
+  `attendance` varchar(20) DEFAULT NULL,
+  `excused` bit(1) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `caught_up` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.organisation definition
+
+CREATE TABLE `organisation` (
+  `id` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.penalty definition
+
+CREATE TABLE `penalty` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `fee_id` bigint(20) DEFAULT NULL,
+  `penalty_date` datetime NOT NULL,
+  `veto` varchar(255) DEFAULT NULL,
+  `veto_accepted` datetime DEFAULT NULL,
+  `veto_deadline_date` datetime DEFAULT NULL,
+  `veto_declined` datetime DEFAULT NULL,
+  `confirmed` datetime DEFAULT NULL,
+  `imposed` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.planned_practice_session definition
+
+CREATE TABLE `planned_practice_session` (
+  `id` bigint(20) DEFAULT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `day_of_week` varchar(100) DEFAULT NULL,
+  `start_time` varchar(5) DEFAULT NULL,
+  `end_time` varchar(5) DEFAULT NULL,
+  `conductor_id` bigint(20) DEFAULT NULL,
+  `trainer_session` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.planned_practice_session_attendance definition
+
+CREATE TABLE `planned_practice_session_attendance` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `practice_session_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile definition
+
+CREATE TABLE `profile` (
+  `id` bigint(20) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
+  `birth_place` varchar(255) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `dead` bit(1) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `death_date` date DEFAULT NULL,
+  `death_place` varchar(255) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `honorary_appointments` text DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `life_stations` text DEFAULT NULL,
+  `marriage_date` date DEFAULT NULL,
+  `middlename` varchar(255) DEFAULT NULL,
+  `national_service` varchar(255) DEFAULT NULL,
+  `picture_link` varchar(255) DEFAULT NULL,
+  `remark` text DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `business_contact_id` bigint(20) DEFAULT NULL,
+  `created_by_id` bigint(20) DEFAULT NULL,
+  `employer_id` bigint(20) DEFAULT NULL,
+  `parents_address_id` bigint(20) DEFAULT NULL,
+  `private_address_id` bigint(20) DEFAULT NULL,
+  `private_contact_id` bigint(20) DEFAULT NULL,
+  `updated_by_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `acception_date` date DEFAULT NULL,
+  `klammer_chargen` varchar(255) DEFAULT NULL,
+  `number` varchar(10) DEFAULT NULL,
+  `number_corps_list` int(11) DEFAULT NULL,
+  `number_of_mensuren` int(11) DEFAULT NULL,
+  `number_of_reinigungen` int(11) DEFAULT NULL,
+  `old_picture_number` int(11) DEFAULT NULL,
+  `philistrierung_date` date DEFAULT NULL,
+  `quit_date` date DEFAULT NULL,
+  `quited` bit(1) DEFAULT NULL,
+  `reception_date` date DEFAULT NULL,
+  `reception_number` int(11) DEFAULT NULL,
+  `remark_corps` text DEFAULT NULL,
+  `type_of_quit` varchar(255) DEFAULT NULL,
+  `leib_bursch_id` bigint(20) DEFAULT NULL,
+  `last_news_check` datetime DEFAULT NULL,
+  `last_ticket_check` datetime DEFAULT NULL,
+  `wrong_email_address_detected` datetime DEFAULT NULL,
+  `ehrenbursche_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_ahsc definition
+
+CREATE TABLE `profile_ahsc` (
+  `profile_id` bigint(20) DEFAULT NULL,
+  `ahsc_id` bigint(20) DEFAULT NULL,
+  `id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_article_entry definition
+
+CREATE TABLE `profile_article_entry` (
+  `author_id` bigint(20) DEFAULT NULL,
+  `articleEntry_id` bigint(20) DEFAULT NULL,
+  `id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_forum_message definition
+
+CREATE TABLE `profile_forum_message` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `forum_message_id` bigint(20) DEFAULT NULL,
+  `send_summary` varchar(100) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_interest definition
+
+CREATE TABLE `profile_interest` (
+  `profile_id` bigint(20) DEFAULT NULL,
+  `interest_id` bigint(20) DEFAULT NULL,
+  `id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_language definition
+
+CREATE TABLE `profile_language` (
+  `Profile_id` bigint(20) DEFAULT NULL,
+  `languages_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_mail_group definition
+
+CREATE TABLE `profile_mail_group` (
+  `profile_id` bigint(20) DEFAULT NULL,
+  `mail_group_id` bigint(20) DEFAULT NULL,
+  `id` bigint(20) DEFAULT NULL,
+  `send_summary` varchar(100) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_organisation definition
+
+CREATE TABLE `profile_organisation` (
+  `Profile_id` bigint(20) DEFAULT NULL,
+  `organisations_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_picture definition
+
+CREATE TABLE `profile_picture` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `picture_link` varchar(255) DEFAULT NULL,
+  `main_picture` bit(1) DEFAULT NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `uploaded` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_setting definition
+
+CREATE TABLE `profile_setting` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `email_reminder_recurrent_event` varchar(255) DEFAULT NULL,
+  `email_reminder_not_recurrent_event` varchar(255) DEFAULT NULL,
+  `email_reminder_news` varchar(255) DEFAULT NULL,
+  `email_reminder_ticket` varchar(255) DEFAULT NULL,
+  `email_toast` varchar(100) DEFAULT NULL,
+  `email_new_event` varchar(100) DEFAULT NULL,
+  `quited` bit(1) DEFAULT NULL,
+  `email_forum_message` varchar(100) DEFAULT NULL,
+  `welcome_card_visible` bit(1) DEFAULT NULL,
+  `news_card_visible` bit(1) DEFAULT NULL,
+  `events_card_visible` bit(1) DEFAULT NULL,
+  `active_member_card_visible` bit(1) DEFAULT NULL,
+  `toast_card_visible` bit(1) DEFAULT NULL,
+  `birthday_card_visible` bit(1) DEFAULT NULL,
+  `email_reminder_mandatory_event` varchar(100) DEFAULT NULL,
+  `mandatory_events_card_visible` bit(1) DEFAULT NULL,
+  `penalty_card_visible` bit(1) DEFAULT NULL,
+  `nww_card_visible` bit(1) DEFAULT NULL,
+  `email_mensur_day_infos` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_ticket definition
+
+CREATE TABLE `profile_ticket` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `ticket_id` bigint(20) DEFAULT NULL,
+  `created` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.profile_university_course definition
+
+CREATE TABLE `profile_university_course` (
+  `profile_id` bigint(20) DEFAULT NULL,
+  `university` varchar(255) DEFAULT NULL,
+  `university_course` varchar(255) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.queued_email definition
+
+CREATE TABLE `queued_email` (
+  `id` bigint(20) DEFAULT NULL,
+  `text` text NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `send_datetime` datetime DEFAULT NULL,
+  `scheduled_send_datetime` datetime NOT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `mail_group_message_id` bigint(20) DEFAULT NULL,
+  `sender` varchar(100) DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `attachment_path` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.`relative` definition
+
+CREATE TABLE `relative` (
+  `id` bigint(20) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `mobileNumber` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `occupation` varchar(255) DEFAULT NULL,
+  `telephoneNumber` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.`role` definition
+
+CREATE TABLE `role` (
+  `id` bigint(20) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.roles_permissions definition
+
+CREATE TABLE `roles_permissions` (
+  `Role_id` bigint(20) DEFAULT NULL,
+  `permissions` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.semester definition
+
+CREATE TABLE `semester` (
+  `id` bigint(20) DEFAULT NULL,
+  `period` varchar(100) DEFAULT NULL,
+  `year` varchar(100) DEFAULT NULL,
+  `begin` datetime NOT NULL,
+  `begin_courses` datetime DEFAULT NULL,
+  `end` datetime DEFAULT NULL,
+  `end_courses` datetime DEFAULT NULL,
+  `winter_break_start` datetime DEFAULT NULL,
+  `winter_break_end` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.sent_email definition
+
+CREATE TABLE `sent_email` (
+  `id` bigint(20) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `send_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.setting_value definition
+
+CREATE TABLE `setting_value` (
+  `id` bigint(20) DEFAULT NULL,
+  `group_id` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `sort_order` int(11) DEFAULT NULL,
+  `identifier` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.spefuchs definition
+
+CREATE TABLE `spefuchs` (
+  `id` bigint(20) DEFAULT NULL,
+  `firstname` varchar(100) DEFAULT NULL,
+  `lastname` varchar(100) DEFAULT NULL,
+  `university_course` varchar(255) DEFAULT NULL,
+  `first_contact` date NOT NULL,
+  `remark` text DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `creator_id` bigint(20) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `modifier_id` bigint(20) DEFAULT NULL,
+  `university` varchar(255) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(100) DEFAULT NULL,
+  `chance` int(11) DEFAULT NULL,
+  `last_contact` date DEFAULT NULL,
+  `assigned_room` varchar(100) DEFAULT NULL,
+  `fitting` int(11) DEFAULT NULL,
+  `category` int(11) DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
+  `deleted` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.spefuchs_activity definition
+
+CREATE TABLE `spefuchs_activity` (
+  `id` bigint(20) DEFAULT NULL,
+  `spefuchs_id` bigint(20) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `details` text DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `responsible_id` bigint(20) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `end_date` date DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `modifier_id` bigint(20) DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
+  `creator_id` bigint(20) DEFAULT NULL,
+  `done_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.spefuchs_comment definition
+
+CREATE TABLE `spefuchs_comment` (
+  `id` bigint(20) DEFAULT NULL,
+  `spefuchs_id` bigint(20) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `creator_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.spefuchs_connection definition
+
+CREATE TABLE `spefuchs_connection` (
+  `id` bigint(20) DEFAULT NULL,
+  `spefuchs_id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.statistic_member definition
+
+CREATE TABLE `statistic_member` (
+  `id` bigint(20) DEFAULT NULL,
+  `organization` varchar(100) DEFAULT NULL,
+  `semester_year` int(4) DEFAULT NULL,
+  `semester_turnus` varchar(2) DEFAULT NULL,
+  `ren` int(11) DEFAULT NULL,
+  `idc` int(11) DEFAULT NULL,
+  `cb` int(11) DEFAULT NULL,
+  `oiacb` int(11) DEFAULT NULL,
+  `aiacb` int(11) DEFAULT NULL,
+  `ah` int(11) DEFAULT NULL,
+  `eb` int(11) DEFAULT NULL,
+  `vg` int(11) DEFAULT NULL,
+  `zg` int(11) DEFAULT NULL,
+  `mbl` int(11) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `creator_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.status definition
+
+CREATE TABLE `status` (
+  `id` bigint(20) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.statutes definition
+
+CREATE TABLE `statutes` (
+  `id` bigint(20) DEFAULT NULL,
+  `parent_id` bigint(20) DEFAULT NULL,
+  `number` varchar(10) DEFAULT NULL,
+  `text` text NOT NULL,
+  `valid_from` date NOT NULL,
+  `valid_to` date DEFAULT NULL,
+  `replaced_by_id` bigint(20) DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `sort_order` int(5) DEFAULT NULL,
+  `category` varchar(100) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `hidden` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.system_event definition
+
+CREATE TABLE `system_event` (
+  `id` bigint(20) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `module` varchar(255) DEFAULT NULL,
+  `severity` int(11) DEFAULT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  `changed_profile` varchar(255) DEFAULT NULL,
+  `changing_profile_id` bigint(20) DEFAULT NULL,
+  `changed_profile_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.system_masterdata definition
+
+CREATE TABLE `system_masterdata` (
+  `id` bigint(20) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `category` varchar(100) DEFAULT NULL,
+  `sort_order` int(11) DEFAULT NULL,
+  `enabled` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.system_menu_item definition
+
+CREATE TABLE `system_menu_item` (
+  `id` bigint(20) DEFAULT NULL,
+  `parent_id` bigint(20) DEFAULT NULL,
+  `label` varchar(100) DEFAULT NULL,
+  `link` varchar(100) DEFAULT NULL,
+  `hidden` bit(1) DEFAULT NULL,
+  `disabled` bit(1) DEFAULT NULL,
+  `sort_order` int(11) DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `active_icon` varchar(100) DEFAULT NULL,
+  `roles` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.system_setting definition
+
+CREATE TABLE `system_setting` (
+  `id` bigint(20) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `enabled` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.system_state definition
+
+CREATE TABLE `system_state` (
+  `id` bigint(20) DEFAULT NULL,
+  `module` varchar(100) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `updated` datetime NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.system_value definition
+
+CREATE TABLE `system_value` (
+  `id` bigint(20) DEFAULT NULL,
+  `field_id` varchar(100) DEFAULT NULL,
+  `field_value` varchar(100) DEFAULT NULL,
+  `enabled` bit(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.t27sz_chronoforms_data_rhenanenruf_glossar definition
+
+CREATE TABLE `t27sz_chronoforms_data_rhenanenruf_glossar` (
+  `id` int(11) DEFAULT NULL,
+  `cf_uid` varchar(255) DEFAULT NULL,
+  `cf_created` datetime DEFAULT NULL,
+  `cf_modified` datetime DEFAULT NULL,
+  `cf_created_by` int(11) DEFAULT NULL,
+  `cf_modified_by` int(11) DEFAULT NULL,
+  `cf_ipaddress` varchar(255) DEFAULT NULL,
+  `User_id` int(11) DEFAULT NULL,
+  `month` varchar(15) DEFAULT NULL,
+  `year` int(4) DEFAULT NULL,
+  `page` int(3) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `title` text NOT NULL,
+  `category` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.task definition
+
+CREATE TABLE `task` (
+  `id` bigint(20) DEFAULT NULL,
+  `profile_id` bigint(20) DEFAULT NULL,
+  `header` varchar(255) DEFAULT NULL,
+  `text` text DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` date DEFAULT NULL,
+  `seen_date` datetime DEFAULT NULL,
+  `creator_id` bigint(20) DEFAULT NULL,
+  `done_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.ticket definition
+
+CREATE TABLE `ticket` (
+  `id` bigint(20) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `headline` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `start_date` datetime NOT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `voting_enabled` bit(1) DEFAULT NULL,
+  `author_id` bigint(20) DEFAULT NULL,
+  `available_version` varchar(100) DEFAULT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.ticket_comment definition
+
+CREATE TABLE `ticket_comment` (
+  `id` bigint(20) DEFAULT NULL,
+  `author_id` bigint(20) DEFAULT NULL,
+  `ticket_id` bigint(20) DEFAULT NULL,
+  `text` text NOT NULL,
+  `message_time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.ticket_voting definition
+
+CREATE TABLE `ticket_voting` (
+  `id` bigint(20) DEFAULT NULL,
+  `voter_id` bigint(20) DEFAULT NULL,
+  `ticket_id` bigint(20) DEFAULT NULL,
+  `positive_vote` bit(1) DEFAULT NULL,
+  `voting_time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.toast definition
+
+CREATE TABLE `toast` (
+  `id` bigint(20) DEFAULT NULL,
+  `reason` varchar(100) DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `from_id` bigint(20) DEFAULT NULL,
+  `to_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+
+-- rhintern.`user` definition
+
+CREATE TABLE `user` (
+  `id` bigint(20) DEFAULT NULL,
+  `accountLocked` bit(1) DEFAULT NULL,
+  `accountLockedDate` datetime DEFAULT NULL,
+  `activated` bit(1) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `failedLogins` int(11) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastLogin` datetime DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `passwordExpireDate` datetime DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `role_id` bigint(20) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `createdBy` varchar(255) DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `updatedBy` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;

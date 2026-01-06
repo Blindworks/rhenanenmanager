@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git config:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(find:*)",
+      "Bash(git check-ignore:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(ng version:*)",
+      "Bash(ng new:*)",
+      "Bash(ng add:*)",
+      "Bash(dir /S \"C:\\\\Users\\\\bened\\\\IdeaProjects\\\\RhenanenManager\\\\rhenanenmanager-frontend\\\\src\")"
+    ]
+  }
+}
