@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!--
+        Liquibase Master Changelog
+        This file includes all changesets in the correct order
+
+        Version 1.0: Initial database schema redesign
+        - Refactored user/profile structure
+        - Separated corps-specific data
+        - Structured unstructured text fields
+    -->
+
+    <!-- v1.0: Core Tables (no dependencies) -->
+    <include file="db/changelog/changesets/v1.0/001-create-role-table.xml"/>
+    <include file="db/changelog/changesets/v1.0/002-create-status-table.xml"/>
+    <include file="db/changelog/changesets/v1.0/003-create-address-table.xml"/>
+    <include file="db/changelog/changesets/v1.0/004-create-contact-table.xml"/>
+
+    <!-- v1.0: Tables with simple dependencies -->
+    <include file="db/changelog/changesets/v1.0/005-create-employer-table.xml"/>
+    <include file="db/changelog/changesets/v1.0/006-create-user-table.xml"/>
+
+    <!-- v1.0: Profile and related tables -->
+    <include file="db/changelog/changesets/v1.0/007-create-profile-table.xml"/>
+    <include file="db/changelog/changesets/v1.0/008-create-corps-member-data-table.xml"/>
+
+    <!-- v1.0: Structured data tables (dependent on profile) -->
+    <include file="db/changelog/changesets/v1.0/009-create-honorary-appointment-table.xml"/>
+    <include file="db/changelog/changesets/v1.0/010-create-life-station-table.xml"/>
+    <include file="db/changelog/changesets/v1.0/011-create-military-service-table.xml"/>
+
+    <!-- v1.0: User activity tracking -->
+    <include file="db/changelog/changesets/v1.0/012-create-user-activity-tracking-table.xml"/>
+
+</databaseChangeLog>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="006-create-user-table" author="rhenanenmanager">
+        <comment>Create user table for authentication and authorization</comment>
+
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <!-- Login credentials -->
+            <column name="username" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Display name -->
+            <column name="firstname" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Account status -->
+            <column name="activated" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_locked" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_locked_date" type="DATETIME"/>
+            <column name="failed_logins" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_login" type="DATETIME"/>
+            <column name="password_expire_date" type="DATETIME"/>
+
+            <!-- Role -->
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Audit fields -->
+            <column name="created" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="BIGINT"/>
+            <column name="updated" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by_id" type="BIGINT"/>
+        </createTable>
+
+        <!-- Foreign Keys -->
+        <addForeignKeyConstraint
+            constraintName="fk_user_role"
+            baseTableName="user"
+            baseColumnNames="role_id"
+            referencedTableName="role"
+            referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_user_created_by"
+            baseTableName="user"
+            baseColumnNames="created_by_id"
+            referencedTableName="user"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_user_updated_by"
+            baseTableName="user"
+            baseColumnNames="updated_by_id"
+            referencedTableName="user"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <!-- Indexes -->
+        <createIndex indexName="idx_user_email" tableName="user">
+            <column name="email"/>
+        </createIndex>
+
+        <createIndex indexName="idx_user_username" tableName="user">
+            <column name="username"/>
+        </createIndex>
+
+        <createIndex indexName="idx_user_role" tableName="user">
+            <column name="role_id"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="user"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

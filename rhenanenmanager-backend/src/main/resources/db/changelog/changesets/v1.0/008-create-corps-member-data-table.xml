@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="008-create-corps-member-data-table" author="rhenanenmanager">
+        <comment>Create corps_member_data table for corps-specific member information (separated from profile)</comment>
+
+        <createTable tableName="corps_member_data">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <!-- Profile reference (1:1 relationship) -->
+            <column name="profile_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <!-- Member numbers -->
+            <column name="member_number" type="VARCHAR(10)"/>
+            <column name="corps_list_number" type="INT"/>
+            <column name="old_picture_number" type="INT"/>
+            <column name="reception_number" type="INT"/>
+
+            <!-- Important dates -->
+            <column name="reception_date" type="DATE"/>
+            <column name="acception_date" type="DATE"/>
+            <column name="philistrierung_date" type="DATE"/>
+            <column name="ehrenbursche_date" type="DATE"/>
+            <column name="quit_date" type="DATE"/>
+
+            <!-- Status -->
+            <column name="status_id" type="BIGINT"/>
+            <column name="quited" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quit_type" type="VARCHAR(100)"/>
+
+            <!-- Chargen -->
+            <column name="klammer_chargen" type="VARCHAR(255)"/>
+
+            <!-- Mensur statistics -->
+            <column name="number_of_mensuren" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number_of_reinigungen" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Relationships -->
+            <column name="leib_bursch_id" type="BIGINT"/>
+
+            <!-- Notes -->
+            <column name="corps_notes" type="TEXT"/>
+        </createTable>
+
+        <!-- Foreign Keys -->
+        <addForeignKeyConstraint
+            constraintName="fk_corps_member_profile"
+            baseTableName="corps_member_data"
+            baseColumnNames="profile_id"
+            referencedTableName="profile"
+            referencedColumnNames="id"
+            onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_corps_member_status"
+            baseTableName="corps_member_data"
+            baseColumnNames="status_id"
+            referencedTableName="status"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_corps_member_leib_bursch"
+            baseTableName="corps_member_data"
+            baseColumnNames="leib_bursch_id"
+            referencedTableName="profile"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <!-- Indexes -->
+        <createIndex indexName="idx_corps_member_profile" tableName="corps_member_data">
+            <column name="profile_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_corps_member_status" tableName="corps_member_data">
+            <column name="status_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_corps_member_number" tableName="corps_member_data">
+            <column name="member_number"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="corps_member_data"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

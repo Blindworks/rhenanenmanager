@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="007-create-profile-table" author="rhenanenmanager">
+        <comment>Create profile table for personal information (without corps-specific data)</comment>
+
+        <createTable tableName="profile">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <!-- User reference (1:1 relationship) -->
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <!-- Personal data -->
+            <column name="firstname" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middlename" type="VARCHAR(100)"/>
+            <column name="title" type="VARCHAR(50)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Birth information -->
+            <column name="birth_date" type="DATE"/>
+            <column name="birth_place" type="VARCHAR(255)"/>
+
+            <!-- Death information -->
+            <column name="deceased" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="death_date" type="DATE"/>
+            <column name="death_place" type="VARCHAR(255)"/>
+
+            <!-- Family -->
+            <column name="marriage_date" type="DATE"/>
+
+            <!-- Media -->
+            <column name="picture_url" type="VARCHAR(500)"/>
+
+            <!-- Notes -->
+            <column name="notes" type="TEXT"/>
+
+            <!-- Address and contact references -->
+            <column name="private_address_id" type="BIGINT"/>
+            <column name="parents_address_id" type="BIGINT"/>
+            <column name="private_contact_id" type="BIGINT"/>
+            <column name="business_contact_id" type="BIGINT"/>
+            <column name="employer_id" type="BIGINT"/>
+
+            <!-- Email validation -->
+            <column name="email_verification_failed_date" type="DATETIME"/>
+
+            <!-- Audit fields -->
+            <column name="created" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="BIGINT"/>
+            <column name="updated" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by_id" type="BIGINT"/>
+        </createTable>
+
+        <!-- Foreign Keys -->
+        <addForeignKeyConstraint
+            constraintName="fk_profile_user"
+            baseTableName="profile"
+            baseColumnNames="user_id"
+            referencedTableName="user"
+            referencedColumnNames="id"
+            onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_profile_private_address"
+            baseTableName="profile"
+            baseColumnNames="private_address_id"
+            referencedTableName="address"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_profile_parents_address"
+            baseTableName="profile"
+            baseColumnNames="parents_address_id"
+            referencedTableName="address"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_profile_private_contact"
+            baseTableName="profile"
+            baseColumnNames="private_contact_id"
+            referencedTableName="contact"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_profile_business_contact"
+            baseTableName="profile"
+            baseColumnNames="business_contact_id"
+            referencedTableName="contact"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_profile_employer"
+            baseTableName="profile"
+            baseColumnNames="employer_id"
+            referencedTableName="employer"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_profile_created_by"
+            baseTableName="profile"
+            baseColumnNames="created_by_id"
+            referencedTableName="user"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_profile_updated_by"
+            baseTableName="profile"
+            baseColumnNames="updated_by_id"
+            referencedTableName="user"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <!-- Indexes -->
+        <createIndex indexName="idx_profile_user" tableName="profile">
+            <column name="user_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_profile_email" tableName="profile">
+            <column name="email"/>
+        </createIndex>
+
+        <createIndex indexName="idx_profile_lastname" tableName="profile">
+            <column name="lastname"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="profile"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

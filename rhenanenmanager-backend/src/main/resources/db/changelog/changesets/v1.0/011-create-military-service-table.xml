@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="011-create-military-service-table" author="rhenanenmanager">
+        <comment>Create military_service table to replace unstructured national_service field</comment>
+
+        <createTable tableName="military_service">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <!-- Profile reference -->
+            <column name="profile_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Service details -->
+            <column name="service_type" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="branch" type="VARCHAR(100)"/>
+            <column name="rank" type="VARCHAR(100)"/>
+            <column name="unit" type="VARCHAR(255)"/>
+            <column name="location" type="VARCHAR(255)"/>
+            <column name="start_date" type="DATE"/>
+            <column name="end_date" type="DATE"/>
+            <column name="description" type="TEXT"/>
+        </createTable>
+
+        <!-- Foreign Keys -->
+        <addForeignKeyConstraint
+            constraintName="fk_military_service_profile"
+            baseTableName="military_service"
+            baseColumnNames="profile_id"
+            referencedTableName="profile"
+            referencedColumnNames="id"
+            onDelete="CASCADE"/>
+
+        <!-- Indexes -->
+        <createIndex indexName="idx_military_service_profile" tableName="military_service">
+            <column name="profile_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_military_service_type" tableName="military_service">
+            <column name="service_type"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="military_service"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="002-create-status-table" author="rhenanenmanager">
+        <comment>Create status table for corps member status</comment>
+
+        <createTable tableName="status">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="idx_status_name" tableName="status">
+            <column name="name"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="status"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="002-insert-default-status" author="rhenanenmanager">
+        <comment>Insert default corps member status values</comment>
+
+        <insert tableName="status">
+            <column name="name" value="Fuchs"/>
+        </insert>
+
+        <insert tableName="status">
+            <column name="name" value="Bursch"/>
+        </insert>
+
+        <insert tableName="status">
+            <column name="name" value="Inaktiver"/>
+        </insert>
+
+        <insert tableName="status">
+            <column name="name" value="Alter Herr"/>
+        </insert>
+
+        <insert tableName="status">
+            <column name="name" value="Ehrenbursche"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="status">
+                <where>name IN ('Fuchs', 'Bursch', 'Inaktiver', 'Alter Herr', 'Ehrenbursche')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -9,7 +9,10 @@
       "Bash(ng version:*)",
       "Bash(ng new:*)",
       "Bash(ng add:*)",
-      "Bash(dir /S \"C:\\\\Users\\\\bened\\\\IdeaProjects\\\\RhenanenManager\\\\rhenanenmanager-frontend\\\\src\")"
+      "Bash(dir /S \"C:\\\\Users\\\\bened\\\\IdeaProjects\\\\RhenanenManager\\\\rhenanenmanager-frontend\\\\src\")",
+      "WebFetch(domain:dribbble.com)",
+      "Bash(ng generate:*)",
+      "Bash(cat:*)"
     ]
   }
 }

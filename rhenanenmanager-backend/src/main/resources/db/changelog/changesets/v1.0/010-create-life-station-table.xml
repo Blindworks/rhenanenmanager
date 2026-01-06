@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="010-create-life-station-table" author="rhenanenmanager">
+        <comment>Create life_station table to replace unstructured life_stations text field</comment>
+
+        <createTable tableName="life_station">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <!-- Profile reference -->
+            <column name="profile_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Station details -->
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="location" type="VARCHAR(255)"/>
+            <column name="start_date" type="DATE"/>
+            <column name="end_date" type="DATE"/>
+            <column name="category" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sort_order" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Foreign Keys -->
+        <addForeignKeyConstraint
+            constraintName="fk_life_station_profile"
+            baseTableName="life_station"
+            baseColumnNames="profile_id"
+            referencedTableName="profile"
+            referencedColumnNames="id"
+            onDelete="CASCADE"/>
+
+        <!-- Indexes -->
+        <createIndex indexName="idx_life_station_profile" tableName="life_station">
+            <column name="profile_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_life_station_category" tableName="life_station">
+            <column name="category"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="life_station"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

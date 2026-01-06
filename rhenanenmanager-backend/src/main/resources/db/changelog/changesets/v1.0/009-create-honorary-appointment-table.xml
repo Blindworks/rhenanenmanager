@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="009-create-honorary-appointment-table" author="rhenanenmanager">
+        <comment>Create honorary_appointment table to replace unstructured honorary_appointments text field</comment>
+
+        <createTable tableName="honorary_appointment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <!-- Profile reference -->
+            <column name="profile_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- Appointment details -->
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="organization" type="VARCHAR(255)"/>
+            <column name="start_date" type="DATE"/>
+            <column name="end_date" type="DATE"/>
+            <column name="description" type="TEXT"/>
+            <column name="is_current" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Foreign Keys -->
+        <addForeignKeyConstraint
+            constraintName="fk_honorary_appointment_profile"
+            baseTableName="honorary_appointment"
+            baseColumnNames="profile_id"
+            referencedTableName="profile"
+            referencedColumnNames="id"
+            onDelete="CASCADE"/>
+
+        <!-- Indexes -->
+        <createIndex indexName="idx_honorary_appointment_profile" tableName="honorary_appointment">
+            <column name="profile_id"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="honorary_appointment"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

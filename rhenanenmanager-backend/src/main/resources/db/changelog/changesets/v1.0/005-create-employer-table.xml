@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="005-create-employer-table" author="rhenanenmanager">
+        <comment>Create employer table for storing employer information</comment>
+
+        <createTable tableName="employer">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="TEXT"/>
+            <column name="department" type="TEXT"/>
+            <column name="role" type="TEXT"/>
+            <column name="start_date" type="DATE"/>
+            <column name="end_date" type="DATE"/>
+            <column name="address_id" type="BIGINT"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+            constraintName="fk_employer_address"
+            baseTableName="employer"
+            baseColumnNames="address_id"
+            referencedTableName="address"
+            referencedColumnNames="id"
+            onDelete="SET NULL"/>
+
+        <createIndex indexName="idx_employer_name" tableName="employer">
+            <column name="name"/>
+        </createIndex>
+
+        <createIndex indexName="idx_employer_address" tableName="employer">
+            <column name="address_id"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="employer"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

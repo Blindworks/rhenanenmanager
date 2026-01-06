@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="004-create-contact-table" author="rhenanenmanager">
+        <comment>Create contact table for storing contact information</comment>
+
+        <createTable tableName="contact">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="telephone_number" type="VARCHAR(50)"/>
+            <column name="mobile_number" type="VARCHAR(50)"/>
+            <column name="fax_number" type="VARCHAR(50)"/>
+            <column name="website" type="VARCHAR(500)"/>
+            <column name="skype_username" type="VARCHAR(100)"/>
+        </createTable>
+
+        <createIndex indexName="idx_contact_email" tableName="contact">
+            <column name="email"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="contact"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

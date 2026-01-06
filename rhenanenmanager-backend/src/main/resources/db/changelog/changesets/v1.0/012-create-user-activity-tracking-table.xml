@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="012-create-user-activity-tracking-table" author="rhenanenmanager">
+        <comment>Create user_activity_tracking table for UI tracking (separated from profile)</comment>
+
+        <createTable tableName="user_activity_tracking">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <!-- User reference (1:1 relationship) -->
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <!-- Last check timestamps -->
+            <column name="last_news_check" type="DATETIME"/>
+            <column name="last_ticket_check" type="DATETIME"/>
+            <column name="last_forum_check" type="DATETIME"/>
+            <column name="last_event_check" type="DATETIME"/>
+            <column name="last_message_check" type="DATETIME"/>
+
+            <!-- Updated timestamp -->
+            <column name="updated" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Foreign Keys -->
+        <addForeignKeyConstraint
+            constraintName="fk_activity_tracking_user"
+            baseTableName="user_activity_tracking"
+            baseColumnNames="user_id"
+            referencedTableName="user"
+            referencedColumnNames="id"
+            onDelete="CASCADE"/>
+
+        <!-- Indexes -->
+        <createIndex indexName="idx_activity_tracking_user" tableName="user_activity_tracking">
+            <column name="user_id"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="user_activity_tracking"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

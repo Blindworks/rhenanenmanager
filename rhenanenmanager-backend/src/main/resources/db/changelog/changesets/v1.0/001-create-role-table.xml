@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-create-role-table" author="rhenanenmanager">
+        <comment>Create role table for user permissions</comment>
+
+        <createTable tableName="role">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+        </createTable>
+
+        <createIndex indexName="idx_role_name" tableName="role">
+            <column name="name"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="role"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="001-insert-default-roles" author="rhenanenmanager">
+        <comment>Insert default roles</comment>
+
+        <insert tableName="role">
+            <column name="name" value="ROLE_ADMIN"/>
+            <column name="description" value="Administrator with full access"/>
+        </insert>
+
+        <insert tableName="role">
+            <column name="name" value="ROLE_USER"/>
+            <column name="description" value="Regular user with limited access"/>
+        </insert>
+
+        <insert tableName="role">
+            <column name="name" value="ROLE_MODERATOR"/>
+            <column name="description" value="Moderator with elevated privileges"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="role">
+                <where>name IN ('ROLE_ADMIN', 'ROLE_USER', 'ROLE_MODERATOR')</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

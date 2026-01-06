@@ -1,0 +1,145 @@
+<!-- Navigation Toolbar -->
+<mat-toolbar class="welcome-toolbar">
+  <div class="toolbar-container">
+    <div class="logo">
+      <mat-icon class="logo-icon">school</mat-icon>
+      <span class="logo-text">RhenanenManager</span>
+    </div>
+    <div class="nav-actions">
+      <button mat-button (click)="scrollToFeatures()" class="nav-link">Features</button>
+      <button mat-raised-button color="primary" (click)="navigateToLogin()" class="login-btn">
+        Login
+      </button>
+    </div>
+  </div>
+</mat-toolbar>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon>workspace_premium</mat-icon>
+        <span>Corps Management System</span>
+      </div>
+      <h1 class="hero-title">
+        Modernes Management für
+        <span class="gradient-text">Ihre Verbindung</span>
+      </h1>
+      <p class="hero-description">
+        RhenanenManager ist die umfassende Lösung für das digitale Management deutscher Studentenverbindungen.
+        Von Mitgliederverwaltung über Mensur-Tracking bis zur Veranstaltungsplanung – alles an einem Ort.
+      </p>
+      <div class="hero-actions">
+        <button mat-raised-button color="primary" class="cta-primary" (click)="navigateToLogin()">
+          <mat-icon>login</mat-icon>
+          Jetzt starten
+        </button>
+        <button mat-stroked-button class="cta-secondary" (click)="scrollToFeatures()">
+          <mat-icon>info</mat-icon>
+          Mehr erfahren
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">70+</span>
+          <span class="stat-label">Funktionen</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Corps-optimiert</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Verfügbar</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="visual-card card-1">
+        <mat-icon>groups</mat-icon>
+        <div class="card-content">
+          <h4>Mitglieder</h4>
+          <p class="card-value">156</p>
+        </div>
+      </div>
+      <div class="visual-card card-2">
+        <mat-icon>event</mat-icon>
+        <div class="card-content">
+          <h4>Events</h4>
+          <p class="card-value">42</p>
+        </div>
+      </div>
+      <div class="visual-card card-3">
+        <mat-icon>sports_martial_arts</mat-icon>
+        <div class="card-content">
+          <h4>Mensuren</h4>
+          <p class="card-value">28</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-background">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+  <div class="features-container">
+    <div class="section-header">
+      <h2 class="section-title">Alle Features für Ihren Corps-Alltag</h2>
+      <p class="section-description">
+        Eine vollständige Suite für Mitgliederverwaltung, Veranstaltungsplanung,
+        Mensur-Tracking und vieles mehr.
+      </p>
+    </div>
+    <div class="features-grid">
+      <mat-card class="feature-card" *ngFor="let feature of features">
+        <div class="feature-icon">
+          <mat-icon>{{ feature.icon }}</mat-icon>
+        </div>
+        <mat-card-content>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-content">
+      <h2 class="cta-title">Bereit zu starten?</h2>
+      <p class="cta-description">
+        Beginnen Sie noch heute mit der digitalen Transformation Ihrer Verbindung.
+      </p>
+      <button mat-raised-button color="primary" class="cta-button" (click)="navigateToLogin()">
+        <mat-icon>arrow_forward</mat-icon>
+        Zum Login
+      </button>
+    </div>
+  </div>
+  <div class="cta-background">
+    <div class="gradient-wave"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="welcome-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <mat-icon class="footer-logo">school</mat-icon>
+      <span class="footer-text">RhenanenManager</span>
+    </div>
+    <div class="footer-info">
+      <span>&copy; 2026 RhenanenManager. Für deutsche Studentenverbindungen.</span>
+    </div>
+  </div>
+</footer>

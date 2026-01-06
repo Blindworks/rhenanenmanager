@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="003-create-address-table" author="rhenanenmanager">
+        <comment>Create address table for storing addresses</comment>
+
+        <createTable tableName="address">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="street" type="VARCHAR(255)"/>
+            <column name="addon" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="zip" type="VARCHAR(20)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="state" type="VARCHAR(255)"/>
+            <column name="country" type="VARCHAR(100)"/>
+            <column name="latitude" type="DOUBLE"/>
+            <column name="longitude" type="DOUBLE"/>
+            <column name="type" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="idx_address_city" tableName="address">
+            <column name="city"/>
+        </createIndex>
+
+        <createIndex indexName="idx_address_country" tableName="address">
+            <column name="country"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="address"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
