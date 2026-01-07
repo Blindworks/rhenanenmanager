@@ -4,6 +4,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -14,72 +16,68 @@ import { AuthService } from '../../core/services/auth.service';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule,
+    MatDividerModule
   ],
-  template: `
-    <mat-toolbar color="primary">
-      <span>RhenanenManager</span>
-      <span class="spacer"></span>
-      <button mat-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        Logout
-      </button>
-    </mat-toolbar>
-
-    <div class="dashboard-container">
-      <h1>Welcome, {{ currentUser?.username }}!</h1>
-      <p>Role: {{ currentUser?.role }}</p>
-
-      <div class="cards-container">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Members</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>Manage member profiles and information</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Events</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>View and manage upcoming events</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Documents</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>Access important documents and files</p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .spacer {
-      flex: 1 1 auto;
-    }
-
-    .dashboard-container {
-      padding: 20px;
-    }
-
-    .cards-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-  `]
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   private authService = inject(AuthService);
   currentUser = this.authService.getCurrentUser();
+
+  stats = [
+    { icon: 'groups', label: 'Mitglieder', value: '156', color: '#06b6d4' },
+    { icon: 'event', label: 'Events', value: '42', color: '#7c3aed' },
+    { icon: 'sports_martial_arts', label: 'Mensuren', value: '28', color: '#f59e0b' },
+    { icon: 'folder', label: 'Dokumente', value: '234', color: '#1e3a8a' }
+  ];
+
+  features = [
+    {
+      icon: 'groups',
+      title: 'Mitgliederverwaltung',
+      description: 'Verwalten Sie Profile, Status und Corps-Laufbahn',
+      route: '/members'
+    },
+    {
+      icon: 'sports_martial_arts',
+      title: 'Mensur-Tracking',
+      description: 'Protokollieren und auswerten Sie Mensuren',
+      route: '/mensur'
+    },
+    {
+      icon: 'event',
+      title: 'Veranstaltungen',
+      description: 'Planen Sie Events und verwalten Sie Zusagen',
+      route: '/events'
+    },
+    {
+      icon: 'forum',
+      title: 'Forum',
+      description: 'Diskutieren Sie mit der Community',
+      route: '/forum'
+    },
+    {
+      icon: 'work',
+      title: 'Karriere-Netzwerk',
+      description: 'Nutzen Sie das Alumni-Netzwerk',
+      route: '/career'
+    },
+    {
+      icon: 'folder',
+      title: 'Dokumente',
+      description: 'Zugriff auf Satzungen und Protokolle',
+      route: '/documents'
+    }
+  ];
+
+  recentActivities = [
+    { icon: 'person_add', text: 'Neues Mitglied aufgenommen: Johann Weber', time: 'vor 2 Stunden' },
+    { icon: 'event', text: 'Neue Veranstaltung: Sommerkneipe 2026', time: 'vor 5 Stunden' },
+    { icon: 'sports_martial_arts', text: 'Mensur-Protokoll aktualisiert', time: 'vor 1 Tag' }
+  ];
 
   logout(): void {
     this.authService.logout();

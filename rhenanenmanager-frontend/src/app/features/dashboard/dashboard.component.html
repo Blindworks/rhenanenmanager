@@ -1,0 +1,149 @@
+<!-- Modern Dashboard Toolbar -->
+<mat-toolbar class="dashboard-toolbar">
+  <div class="toolbar-container">
+    <div class="logo">
+      <mat-icon class="logo-icon">school</mat-icon>
+      <span class="logo-text">RhenanenManager</span>
+    </div>
+    <div class="nav-actions">
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-btn">
+        <mat-icon>account_circle</mat-icon>
+        <span>{{ currentUser?.username }}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>Profil</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Einstellungen</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
+
+<!-- Dashboard Content -->
+<div class="dashboard-content">
+  <!-- Welcome Section -->
+  <section class="welcome-section">
+    <div class="welcome-container">
+      <div class="welcome-text">
+        <h1 class="welcome-title">
+          Willkommen zurück, <span class="gradient-text">{{ currentUser?.username }}</span>
+        </h1>
+        <p class="welcome-subtitle">
+          Verwalten Sie Ihren Corps-Alltag effizient und übersichtlich
+        </p>
+        <div class="user-role">
+          <mat-icon>verified_user</mat-icon>
+          <span>{{ currentUser?.role }}</span>
+        </div>
+      </div>
+      <div class="welcome-visual">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="stat-card" *ngFor="let stat of stats">
+        <div class="stat-icon" [style.background]="'linear-gradient(135deg, ' + stat.color + '20, ' + stat.color + '10)'">
+          <mat-icon [style.color]="stat.color">{{ stat.icon }}</mat-icon>
+        </div>
+        <div class="stat-content">
+          <span class="stat-value">{{ stat.value }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="main-grid">
+    <!-- Features Section -->
+    <section class="features-section">
+      <h2 class="section-title">Schnellzugriff</h2>
+      <div class="features-grid">
+        <mat-card class="feature-card" *ngFor="let feature of features">
+          <div class="feature-icon">
+            <mat-icon>{{ feature.icon }}</mat-icon>
+          </div>
+          <mat-card-content>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-description">{{ feature.description }}</p>
+          </mat-card-content>
+          <button mat-button color="primary" class="feature-action">
+            Öffnen
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </mat-card>
+      </div>
+    </section>
+
+    <!-- Activity Section -->
+    <section class="activity-section">
+      <mat-card class="activity-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>history</mat-icon>
+            Letzte Aktivitäten
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="activity-list">
+            <div class="activity-item" *ngFor="let activity of recentActivities">
+              <div class="activity-icon">
+                <mat-icon>{{ activity.icon }}</mat-icon>
+              </div>
+              <div class="activity-content">
+                <p class="activity-text">{{ activity.text }}</p>
+                <span class="activity-time">{{ activity.time }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Quick Stats Card -->
+      <mat-card class="quick-stats-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>insights</mat-icon>
+            Übersicht
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="quick-stat-item">
+            <span class="quick-stat-label">Aktive Mitglieder</span>
+            <span class="quick-stat-value">89</span>
+          </div>
+          <div class="quick-stat-item">
+            <span class="quick-stat-label">Alte Herren</span>
+            <span class="quick-stat-value">67</span>
+          </div>
+          <div class="quick-stat-item">
+            <span class="quick-stat-label">Kommende Events</span>
+            <span class="quick-stat-value">8</span>
+          </div>
+          <div class="quick-stat-item">
+            <span class="quick-stat-label">Offene Aufgaben</span>
+            <span class="quick-stat-value">12</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </div>
+</div>
