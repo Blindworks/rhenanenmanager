@@ -3,25 +3,19 @@ package com.blindworks.rhenanenmanager.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-/**
- * Role entity for user authorization.
- * Maps to the 'role' table in the database.
- */
 @Entity
-@Table(name = "role")
+@Table(name = "status")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Role {
+public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
-
-    private String description;
 }

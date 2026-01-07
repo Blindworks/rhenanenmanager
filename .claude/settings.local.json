@@ -12,7 +12,11 @@
       "Bash(dir /S \"C:\\\\Users\\\\bened\\\\IdeaProjects\\\\RhenanenManager\\\\rhenanenmanager-frontend\\\\src\")",
       "WebFetch(domain:dribbble.com)",
       "Bash(ng generate:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(npm start)"
     ]
   }
 }

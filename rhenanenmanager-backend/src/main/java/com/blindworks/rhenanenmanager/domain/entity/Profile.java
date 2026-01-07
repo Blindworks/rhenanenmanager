@@ -23,15 +23,22 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Column(nullable = false)
     private String firstname;
+
+    @Column(nullable = false)
+    private String lastname;
 
     private String middlename;
 
-    private String lastname;
-
-    private String email;
-
     private String title;
+
+    @Column(nullable = false)
+    private String email;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
@@ -39,62 +46,56 @@ public class Profile {
     @Column(name = "birth_place")
     private String birthPlace;
 
+    @Column(nullable = false)
+    private Boolean deceased;
+
     @Column(name = "death_date")
     private LocalDate deathDate;
 
     @Column(name = "death_place")
     private String deathPlace;
 
-    private Boolean dead;
-
     @Column(name = "marriage_date")
     private LocalDate marriageDate;
 
-    @Column(name = "picture_link")
-    private String pictureLink;
+    @Column(name = "picture_url")
+    private String pictureUrl;
 
     @Column(columnDefinition = "TEXT")
-    private String remark;
-
-    @Column(name = "national_service")
-    private String nationalService;
-
-    @Column(name = "honorary_appointments", columnDefinition = "TEXT")
-    private String honoraryAppointments;
-
-    @Column(name = "life_stations", columnDefinition = "TEXT")
-    private String lifeStations;
-
-    private String status;
-
-    private Boolean quited;
-
-    @Column(name = "number")
-    private String number;
-
-    @Column(name = "reception_date")
-    private LocalDate receptionDate;
-
-    @Column(name = "acception_date")
-    private LocalDate acceptionDate;
-
-    @Column(name = "philistrierung_date")
-    private LocalDate philistrierungDate;
-
-    @Column(name = "quit_date")
-    private LocalDate quitDate;
-
-    private LocalDateTime created;
-
-    private LocalDateTime updated;
+    private String notes;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "private_address_id")
+    private Address privateAddress;
+
+    @ManyToOne
+    @JoinColumn(name = "parents_address_id")
+    private Address parentsAddress;
+
+    @ManyToOne
+    @JoinColumn(name = "private_contact_id")
+    private Contact privateContact;
+
+    @ManyToOne
+    @JoinColumn(name = "business_contact_id")
+    private Contact businessContact;
+
+    @ManyToOne
+    @JoinColumn(name = "employer_id")
+    private Employer employer;
+
+    @Column(name = "email_verification_failed_date")
+    private LocalDateTime emailVerificationFailedDate;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime created;
 
     @ManyToOne
     @JoinColumn(name = "created_by_id")
     private User createdBy;
+
+    @Column(nullable = false)
+    private LocalDateTime updated;
 
     @ManyToOne
     @JoinColumn(name = "updated_by_id")
@@ -103,11 +104,9 @@ public class Profile {
     @PrePersist
     protected void onCreate() {
         created = LocalDateTime.now();
-        if (dead == null) {
-            dead = false;
-        }
-        if (quited == null) {
-            quited = false;
+        updated = LocalDateTime.now();
+        if (deceased == null) {
+            deceased = false;
         }
     }
 

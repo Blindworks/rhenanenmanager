@@ -13,7 +13,8 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
     Optional<Profile> findByEmail(String email);
 
-    Page<Profile> findByStatus(String status, Pageable pageable);
+    // Page<Profile> findByStatus(String status, Pageable pageable); // Moved to
+    // CorpsMemberData
 
     Page<Profile> findByLastnameContainingIgnoreCase(String lastname, Pageable pageable);
 }

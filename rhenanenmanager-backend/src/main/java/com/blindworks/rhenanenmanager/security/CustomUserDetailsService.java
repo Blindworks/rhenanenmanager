@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with username: " + username));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
@@ -41,17 +39,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         if (user.getRole() != null) {
-            // Add role as authority with ROLE_ prefix
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()));
-
-            // Add permissions as authorities
-            if (user.getRole().getPermissions() != null) {
-                authorities.addAll(
-                    user.getRole().getPermissions().stream()
-                            .map(SimpleGrantedAuthority::new)
-                            .collect(Collectors.toList())
-                );
-            }
+            // Note: Role name in DB already starts with ROLE_ (e.g., ROLE_ADMIN)
+            authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
         }
 
         return authorities;

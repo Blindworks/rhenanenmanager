@@ -28,46 +28,55 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String firstname;
 
+    @Column(nullable = false)
     private String lastname;
 
-    @Column(name = "activated")
+    @Column(name = "activated", nullable = false)
     private Boolean activated;
 
-    @Column(name = "accountLocked")
+    @Column(name = "account_locked", nullable = false)
     private Boolean accountLocked;
 
-    @Column(name = "accountLockedDate")
+    @Column(name = "account_locked_date")
     private LocalDateTime accountLockedDate;
 
-    @Column(name = "failedLogins")
+    @Column(name = "failed_logins", nullable = false)
     private Integer failedLogins;
 
-    @Column(name = "lastLogin")
+    @Column(name = "last_login")
     private LocalDateTime lastLogin;
 
-    @Column(name = "passwordExpireDate")
+    @Column(name = "password_expire_date")
     private LocalDateTime passwordExpireDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
+    @Column(nullable = false, updatable = false)
     private LocalDateTime created;
 
-    private String createdBy;
+    @ManyToOne
+    @JoinColumn(name = "created_by_id")
+    private User createdBy;
 
+    @Column(nullable = false)
     private LocalDateTime updated;
 
-    private String updatedBy;
+    @ManyToOne
+    @JoinColumn(name = "updated_by_id")
+    private User updatedBy;
 
     @PrePersist
     protected void onCreate() {
         created = LocalDateTime.now();
+        updated = LocalDateTime.now();
         if (activated == null) {
             activated = false;
         }
