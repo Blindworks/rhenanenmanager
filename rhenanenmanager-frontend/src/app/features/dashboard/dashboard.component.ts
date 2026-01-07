@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -25,6 +26,7 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class DashboardComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
   currentUser = this.authService.getCurrentUser();
 
   stats = [
@@ -78,6 +80,10 @@ export class DashboardComponent {
     { icon: 'event', text: 'Neue Veranstaltung: Sommerkneipe 2026', time: 'vor 5 Stunden' },
     { icon: 'sports_martial_arts', text: 'Mensur-Protokoll aktualisiert', time: 'vor 1 Tag' }
   ];
+
+  goToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
 
   logout(): void {
     this.authService.logout();

@@ -1,0 +1,341 @@
+<!-- Profile Toolbar -->
+<mat-toolbar class="profile-toolbar">
+  <div class="toolbar-container">
+    <button mat-icon-button (click)="goToDashboard()" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="toolbar-title">
+      <mat-icon>person</mat-icon>
+      <span>Mein Profil</span>
+    </div>
+    <div class="toolbar-actions">
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-btn">
+        <mat-icon>account_circle</mat-icon>
+        <span>{{ currentUser?.username }}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="goToDashboard()">
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Einstellungen</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
+
+<!-- Profile Content -->
+<div class="profile-content">
+  <!-- Profile Header -->
+  <section class="profile-header">
+    <div class="header-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+    </div>
+    <div class="header-content">
+      <div class="avatar-section">
+        <div class="avatar">
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <button mat-mini-fab color="primary" class="edit-avatar-btn">
+          <mat-icon>photo_camera</mat-icon>
+        </button>
+      </div>
+      <div class="user-info">
+        <h1 class="user-name">
+          {{ personalInfo.title }} {{ personalInfo.firstname }} {{ personalInfo.lastname }}
+        </h1>
+        <div class="user-meta">
+          <mat-chip class="status-chip">
+            <mat-icon>verified_user</mat-icon>
+            {{ corpsMembership.status }}
+          </mat-chip>
+          <mat-chip class="number-chip">
+            <mat-icon>tag</mat-icon>
+            Nr. {{ corpsMembership.number }}
+          </mat-chip>
+          <mat-chip class="role-chip">
+            <mat-icon>admin_panel_settings</mat-icon>
+            {{ currentUser?.role }}
+          </mat-chip>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button mat-raised-button color="primary" (click)="editProfile()">
+          <mat-icon>edit</mat-icon>
+          Profil bearbeiten
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profile Details Grid -->
+  <div class="profile-grid">
+    <!-- Personal Information -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>person</mat-icon>
+          Persönliche Daten
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>badge</mat-icon>
+            <span>Titel</span>
+          </div>
+          <div class="info-value">{{ personalInfo.title }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>person</mat-icon>
+            <span>Name</span>
+          </div>
+          <div class="info-value">{{ personalInfo.firstname }} {{ personalInfo.lastname }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>cake</mat-icon>
+            <span>Geburtsdatum</span>
+          </div>
+          <div class="info-value">{{ personalInfo.birthDate }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>location_on</mat-icon>
+            <span>Geburtsort</span>
+          </div>
+          <div class="info-value">{{ personalInfo.birthPlace }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Contact Information -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>contact_mail</mat-icon>
+          Kontaktdaten
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>email</mat-icon>
+            <span>E-Mail</span>
+          </div>
+          <div class="info-value">{{ personalInfo.email }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>phone</mat-icon>
+            <span>Telefon</span>
+          </div>
+          <div class="info-value">{{ personalInfo.phone }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>smartphone</mat-icon>
+            <span>Mobil</span>
+          </div>
+          <div class="info-value">{{ personalInfo.mobile }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Corps Membership -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>school</mat-icon>
+          Corps-Mitgliedschaft
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>event</mat-icon>
+            <span>Reception</span>
+          </div>
+          <div class="info-value">{{ corpsMembership.reception }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>event_available</mat-icon>
+            <span>Acception</span>
+          </div>
+          <div class="info-value">{{ corpsMembership.acception }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>event_note</mat-icon>
+            <span>Philistrierung</span>
+          </div>
+          <div class="info-value">{{ corpsMembership.philistrierung }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>people</mat-icon>
+            <span>Leibbursch</span>
+          </div>
+          <div class="info-value">{{ corpsMembership.leibbursch }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>person_add</mat-icon>
+            <span>Leibfuchs</span>
+          </div>
+          <div class="info-value">{{ corpsMembership.leibfuchs }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Mensur Statistics -->
+    <mat-card class="info-card stats-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>sports_martial_arts</mat-icon>
+          Mensur-Statistik
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-icon">
+              <mat-icon>checklist</mat-icon>
+            </div>
+            <div class="stat-details">
+              <span class="stat-value">{{ mensurStats.total }}</span>
+              <span class="stat-label">Gesamt</span>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon success">
+              <mat-icon>check_circle</mat-icon>
+            </div>
+            <div class="stat-details">
+              <span class="stat-value">{{ mensurStats.successful }}</span>
+              <span class="stat-label">Erfolgreich</span>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon pending">
+              <mat-icon>schedule</mat-icon>
+            </div>
+            <div class="stat-details">
+              <span class="stat-value">{{ mensurStats.pending }}</span>
+              <span class="stat-label">Ausstehend</span>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>event</mat-icon>
+            <span>Letzte Mensur</span>
+          </div>
+          <div class="info-value">{{ mensurStats.lastDate }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Corps Positions -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>military_tech</mat-icon>
+          Ämter & Funktionen
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="positions-list">
+          <div class="position-item" *ngFor="let position of positions">
+            <div class="position-icon">
+              <mat-icon>stars</mat-icon>
+            </div>
+            <div class="position-details">
+              <span class="position-name">{{ position.name }}</span>
+              <span class="position-period">{{ position.period }}</span>
+            </div>
+            <mat-chip [class.active]="position.active">
+              {{ position.active ? 'Aktiv' : 'Beendet' }}
+            </mat-chip>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Career Information -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>work</mat-icon>
+          Karriere & Ausbildung
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>school</mat-icon>
+            <span>Studium</span>
+          </div>
+          <div class="info-value">{{ careerInfo.education }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>workspace_premium</mat-icon>
+            <span>Abschluss</span>
+          </div>
+          <div class="info-value">{{ careerInfo.degree }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>business</mat-icon>
+            <span>Arbeitgeber</span>
+          </div>
+          <div class="info-value">{{ careerInfo.employer }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>badge</mat-icon>
+            <span>Position</span>
+          </div>
+          <div class="info-value">{{ careerInfo.position }}</div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="info-item">
+          <div class="info-label">
+            <mat-icon>apartment</mat-icon>
+            <span>Abteilung</span>
+          </div>
+          <div class="info-value">{{ careerInfo.department }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
