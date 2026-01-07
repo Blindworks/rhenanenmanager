@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +28,8 @@ import { AuthService } from '../../core/services/auth.service';
 export class DashboardComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  themeService = inject(ThemeService);
+
   currentUser = this.authService.getCurrentUser();
 
   stats = [

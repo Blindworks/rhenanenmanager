@@ -1,31 +1,21 @@
-// Modern Dashboard Styling - Fintech Inspired
-// Color Palette
-$primary-blue: #1e3a8a;
-$secondary-blue: #3b82f6;
-$accent-purple: #7c3aed;
-$accent-cyan: #06b6d4;
-$accent-orange: #f59e0b;
-$dark-bg: #0f172a;
-$dark-card: #1e293b;
-$text-primary: #f8fafc;
-$text-secondary: #cbd5e1;
-$border-color: rgba(148, 163, 184, 0.1);
+// Modern Dashboard Styling - Theme-Aware
+// Works with both Light and Dark themes using CSS Variables
 
 // Dashboard Layout
 :host {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: linear-gradient(135deg, $dark-bg 0%, #1a1f3a 100%);
+  background: var(--color-bg-base);
   overflow: hidden;
 }
 
 // Toolbar Styling
 .dashboard-toolbar {
-  background: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid $border-color;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: var(--color-toolbar-bg);
+  backdrop-filter: var(--backdrop-blur);
+  border-bottom: 1px solid var(--color-toolbar-border);
+  box-shadow: var(--shadow-md);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -46,7 +36,7 @@ $border-color: rgba(148, 163, 184, 0.1);
 
     .logo-icon {
       font-size: 2rem;
-      background: linear-gradient(135deg, $secondary-blue, $accent-purple);
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -55,7 +45,7 @@ $border-color: rgba(148, 163, 184, 0.1);
     .logo-text {
       font-size: 1.5rem;
       font-weight: 700;
-      background: linear-gradient(135deg, $text-primary, $accent-cyan);
+      background: linear-gradient(135deg, var(--color-text-primary), var(--color-accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -68,11 +58,11 @@ $border-color: rgba(148, 163, 184, 0.1);
     gap: 1rem;
 
     button {
-      color: $text-primary;
-      transition: all 0.3s ease;
+      color: var(--color-text-primary);
+      transition: all var(--transition-fast);
 
       &:hover {
-        background: rgba(59, 130, 246, 0.1);
+        background: var(--color-bg-hover);
         transform: translateY(-2px);
       }
     }
@@ -82,18 +72,19 @@ $border-color: rgba(148, 163, 184, 0.1);
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 1rem;
-      border-radius: 12px;
-      background: rgba(59, 130, 246, 0.05);
-      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--radius-md);
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-border);
 
       span {
         font-weight: 600;
         font-size: 0.95rem;
+        color: var(--color-text-primary);
       }
 
       &:hover {
-        background: rgba(59, 130, 246, 0.15);
-        border-color: rgba(59, 130, 246, 0.4);
+        background: var(--color-bg-active);
+        border-color: var(--color-primary);
       }
     }
   }
@@ -108,21 +99,20 @@ $border-color: rgba(148, 163, 184, 0.1);
   margin: 0 auto;
   width: 100%;
 
-  // Custom Scrollbar
   &::-webkit-scrollbar {
     width: 8px;
   }
 
   &::-webkit-scrollbar-track {
-    background: rgba(15, 23, 42, 0.5);
+    background: var(--color-bg-base);
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(59, 130, 246, 0.3);
-    border-radius: 4px;
+    background: var(--color-border);
+    border-radius: var(--radius-sm);
 
     &:hover {
-      background: rgba(59, 130, 246, 0.5);
+      background: var(--color-text-tertiary);
     }
   }
 }
@@ -133,12 +123,12 @@ $border-color: rgba(148, 163, 184, 0.1);
 
   .welcome-container {
     position: relative;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(124, 58, 237, 0.15));
-    border-radius: 24px;
+    background: var(--color-bg-card);
+    border-radius: var(--radius-xl);
     padding: 3rem;
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    border: 1px solid var(--color-border);
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-lg);
 
     .welcome-text {
       position: relative;
@@ -147,12 +137,12 @@ $border-color: rgba(148, 163, 184, 0.1);
       .welcome-title {
         font-size: 2.5rem;
         font-weight: 700;
-        color: $text-primary;
+        color: var(--color-text-primary);
         margin: 0 0 1rem 0;
         line-height: 1.2;
 
         .gradient-text {
-          background: linear-gradient(135deg, $secondary-blue, $accent-purple, $accent-cyan);
+          background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -162,7 +152,7 @@ $border-color: rgba(148, 163, 184, 0.1);
 
       .welcome-subtitle {
         font-size: 1.2rem;
-        color: $text-secondary;
+        color: var(--color-text-secondary);
         margin: 0 0 1.5rem 0;
       }
 
@@ -171,10 +161,10 @@ $border-color: rgba(148, 163, 184, 0.1);
         align-items: center;
         gap: 0.5rem;
         padding: 0.75rem 1.5rem;
-        background: rgba(6, 182, 212, 0.15);
-        border: 1px solid rgba(6, 182, 212, 0.3);
-        border-radius: 12px;
-        color: $accent-cyan;
+        background: var(--color-primary-light);
+        border: 1px solid var(--color-primary);
+        border-radius: var(--radius-md);
+        color: var(--color-primary);
         font-weight: 600;
 
         mat-icon {
@@ -195,13 +185,13 @@ $border-color: rgba(148, 163, 184, 0.1);
         position: absolute;
         border-radius: 50%;
         filter: blur(80px);
-        opacity: 0.4;
+        opacity: 0.3;
         animation: float 6s ease-in-out infinite;
 
         &.orb-1 {
           width: 300px;
           height: 300px;
-          background: linear-gradient(135deg, $secondary-blue, $accent-purple);
+          background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
           top: -50px;
           right: 50px;
         }
@@ -209,7 +199,7 @@ $border-color: rgba(148, 163, 184, 0.1);
         &.orb-2 {
           width: 250px;
           height: 250px;
-          background: linear-gradient(135deg, $accent-cyan, $accent-purple);
+          background: linear-gradient(135deg, var(--color-accent), var(--color-secondary));
           bottom: -50px;
           right: 200px;
           animation-delay: 2s;
@@ -233,17 +223,17 @@ $border-color: rgba(148, 163, 184, 0.1);
       align-items: center;
       gap: 1.5rem;
       padding: 2rem;
-      background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      border: 1px solid $border-color;
-      transition: all 0.3s ease;
+      background: var(--color-bg-card);
+      backdrop-filter: var(--backdrop-blur);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-base);
       cursor: pointer;
 
       &:hover {
         transform: translateY(-4px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--color-primary);
 
         .stat-icon mat-icon {
           transform: scale(1.1);
@@ -256,13 +246,13 @@ $border-color: rgba(148, 163, 184, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 16px;
+        border-radius: var(--radius-lg);
 
         mat-icon {
           font-size: 2rem;
           width: 2rem;
           height: 2rem;
-          transition: transform 0.3s ease;
+          transition: transform var(--transition-base);
         }
       }
 
@@ -274,13 +264,13 @@ $border-color: rgba(148, 163, 184, 0.1);
         .stat-value {
           font-size: 2rem;
           font-weight: 700;
-          color: $text-primary;
+          color: var(--color-text-primary);
           line-height: 1;
         }
 
         .stat-label {
           font-size: 0.95rem;
-          color: $text-secondary;
+          color: var(--color-text-secondary);
           font-weight: 500;
         }
       }
@@ -304,7 +294,7 @@ $border-color: rgba(148, 163, 184, 0.1);
   .section-title {
     font-size: 1.75rem;
     font-weight: 700;
-    color: $text-primary;
+    color: var(--color-text-primary);
     margin: 0 0 1.5rem 0;
     display: flex;
     align-items: center;
@@ -314,8 +304,8 @@ $border-color: rgba(148, 163, 184, 0.1);
       content: '';
       width: 4px;
       height: 2rem;
-      background: linear-gradient(180deg, $secondary-blue, $accent-purple);
-      border-radius: 4px;
+      background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+      border-radius: var(--radius-sm);
     }
   }
 
@@ -325,12 +315,12 @@ $border-color: rgba(148, 163, 184, 0.1);
     gap: 1.5rem;
 
     .feature-card {
-      background: rgba(30, 41, 59, 0.6);
-      backdrop-filter: blur(20px);
-      border-radius: 16px;
-      border: 1px solid $border-color;
+      background: var(--color-bg-card);
+      backdrop-filter: var(--backdrop-blur);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
       padding: 2rem;
-      transition: all 0.3s ease;
+      transition: all var(--transition-base);
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -338,16 +328,16 @@ $border-color: rgba(148, 163, 184, 0.1);
 
       &:hover {
         transform: translateY(-6px);
-        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
-        border-color: rgba(59, 130, 246, 0.5);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--color-primary);
 
         .feature-icon {
           transform: scale(1.1) rotate(5deg);
         }
 
         .feature-action {
-          background: linear-gradient(135deg, $secondary-blue, $accent-purple);
-          color: white;
+          background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+          color: var(--color-text-inverse);
         }
       }
 
@@ -357,16 +347,16 @@ $border-color: rgba(148, 163, 184, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(124, 58, 237, 0.15));
-        border-radius: 14px;
-        border: 1px solid rgba(59, 130, 246, 0.3);
-        transition: all 0.3s ease;
+        background: var(--color-primary-light);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-primary);
+        transition: all var(--transition-base);
 
         mat-icon {
           font-size: 1.75rem;
           width: 1.75rem;
           height: 1.75rem;
-          color: $secondary-blue;
+          color: var(--color-primary);
         }
       }
 
@@ -380,13 +370,13 @@ $border-color: rgba(148, 163, 184, 0.1);
         .feature-title {
           font-size: 1.25rem;
           font-weight: 700;
-          color: $text-primary;
+          color: var(--color-text-primary);
           margin: 0;
         }
 
         .feature-description {
           font-size: 0.95rem;
-          color: $text-secondary;
+          color: var(--color-text-secondary);
           line-height: 1.5;
           margin: 0;
         }
@@ -398,12 +388,12 @@ $border-color: rgba(148, 163, 184, 0.1);
         justify-content: space-between;
         width: 100%;
         padding: 0.75rem 1.25rem;
-        border-radius: 10px;
-        background: rgba(59, 130, 246, 0.1);
-        border: 1px solid rgba(59, 130, 246, 0.2);
-        color: $secondary-blue;
+        border-radius: var(--radius-md);
+        background: var(--color-primary-light);
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
         font-weight: 600;
-        transition: all 0.3s ease;
+        transition: all var(--transition-base);
 
         mat-icon {
           font-size: 1.25rem;
@@ -423,10 +413,10 @@ $border-color: rgba(148, 163, 184, 0.1);
 
   .activity-card,
   .quick-stats-card {
-    background: rgba(30, 41, 59, 0.6);
-    backdrop-filter: blur(20px);
-    border-radius: 16px;
-    border: 1px solid $border-color;
+    background: var(--color-bg-card);
+    backdrop-filter: var(--backdrop-blur);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
 
     mat-card-header {
       padding: 1.5rem 1.5rem 0;
@@ -437,11 +427,11 @@ $border-color: rgba(148, 163, 184, 0.1);
         gap: 0.75rem;
         font-size: 1.25rem;
         font-weight: 700;
-        color: $text-primary;
+        color: var(--color-text-primary);
         margin: 0;
 
         mat-icon {
-          color: $accent-cyan;
+          color: var(--color-accent);
         }
       }
     }
@@ -461,14 +451,14 @@ $border-color: rgba(148, 163, 184, 0.1);
       align-items: flex-start;
       gap: 1rem;
       padding: 1rem;
-      background: rgba(59, 130, 246, 0.05);
-      border-radius: 12px;
-      border: 1px solid rgba(59, 130, 246, 0.1);
-      transition: all 0.3s ease;
+      background: var(--color-primary-light);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      transition: all var(--transition-base);
 
       &:hover {
-        background: rgba(59, 130, 246, 0.1);
-        border-color: rgba(59, 130, 246, 0.3);
+        background: var(--color-bg-hover);
+        border-color: var(--color-primary);
         transform: translateX(4px);
       }
 
@@ -478,15 +468,15 @@ $border-color: rgba(148, 163, 184, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, $secondary-blue, $accent-purple);
-        border-radius: 10px;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        border-radius: var(--radius-md);
         flex-shrink: 0;
 
         mat-icon {
           font-size: 1.25rem;
           width: 1.25rem;
           height: 1.25rem;
-          color: white;
+          color: var(--color-text-inverse);
         }
       }
 
@@ -498,14 +488,14 @@ $border-color: rgba(148, 163, 184, 0.1);
 
         .activity-text {
           font-size: 0.95rem;
-          color: $text-primary;
+          color: var(--color-text-primary);
           margin: 0;
           font-weight: 500;
         }
 
         .activity-time {
           font-size: 0.85rem;
-          color: $text-secondary;
+          color: var(--color-text-secondary);
         }
       }
     }
@@ -522,20 +512,20 @@ $border-color: rgba(148, 163, 184, 0.1);
         justify-content: space-between;
         align-items: center;
         padding: 1rem;
-        background: rgba(6, 182, 212, 0.05);
-        border-radius: 10px;
-        border: 1px solid rgba(6, 182, 212, 0.1);
+        background: var(--color-primary-light);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
 
         .quick-stat-label {
           font-size: 0.95rem;
-          color: $text-secondary;
+          color: var(--color-text-secondary);
           font-weight: 500;
         }
 
         .quick-stat-value {
           font-size: 1.5rem;
           font-weight: 700;
-          color: $accent-cyan;
+          color: var(--color-primary);
         }
       }
     }
@@ -558,15 +548,6 @@ $border-color: rgba(148, 163, 184, 0.1);
   }
   50% {
     background-position: 100% 50%;
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.6;
   }
 }
 

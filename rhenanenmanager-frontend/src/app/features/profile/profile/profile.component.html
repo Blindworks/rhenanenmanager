@@ -9,6 +9,9 @@
       <span>Mein Profil</span>
     </div>
     <div class="toolbar-actions">
+      <button mat-icon-button (click)="themeService.toggleTheme()" class="theme-toggle">
+        <mat-icon>{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
       <button mat-icon-button>
         <mat-icon>notifications</mat-icon>
       </button>

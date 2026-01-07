@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-profile',
@@ -29,6 +30,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class ProfileComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  themeService = inject(ThemeService);
 
   currentUser = this.authService.getCurrentUser();
 
