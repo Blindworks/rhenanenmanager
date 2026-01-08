@@ -59,6 +59,12 @@ export class DashboardComponent {
       route: '/events'
     },
     {
+      icon: 'library_books',
+      title: 'Rhenanenruf Glossar',
+      description: 'Durchsuchen Sie das Archiv des Rhenanenrufs',
+      route: '/rhenanenruf-glossar'
+    },
+    {
       icon: 'forum',
       title: 'Forum',
       description: 'Diskutieren Sie mit der Community',
@@ -86,6 +92,10 @@ export class DashboardComponent {
 
   goToProfile(): void {
     this.router.navigate(['/profile']);
+  }
+
+  navigateToFeature(route: string): void {
+    this.router.navigate([route]);
   }
 
   logout(): void {

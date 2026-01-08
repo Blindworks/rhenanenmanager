@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="013-create-article-entry-table-v2" author="system">
+        <comment>Create article_entry table for Rhenanenruf Glossar (fixed column names)</comment>
+
+        <!-- Drop existing table if it exists -->
+        <dropTable tableName="article_entry" cascadeConstraints="true"/>
+
+        <createTable tableName="article_entry">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="title" type="LONGTEXT">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="subtitle" type="VARCHAR(500)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="alternative_author" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="category" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="text" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="year" type="INT">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="month" type="INT">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="page" type="INT">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="date" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="created" type="TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="modified" type="TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="modified_by" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="created_by_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="modified_by_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <!-- Indexes for better query performance -->
+        <createIndex indexName="idx_article_entry_year" tableName="article_entry">
+            <column name="year"/>
+        </createIndex>
+
+        <createIndex indexName="idx_article_entry_category" tableName="article_entry">
+            <column name="category"/>
+        </createIndex>
+
+        <createIndex indexName="idx_article_entry_year_month" tableName="article_entry">
+            <column name="year"/>
+            <column name="month"/>
+        </createIndex>
+
+        <!-- Insert sample data for testing -->
+        <insert tableName="article_entry">
+            <column name="title" value="Willkommen im Rhenanenruf Glossar"/>
+            <column name="subtitle" value="Eine neue Ära der digitalen Archivierung"/>
+            <column name="alternative_author" value="Die Redaktion"/>
+            <column name="category" value="Editorial"/>
+            <column name="text" value="Liebe Leser, mit dieser Ausgabe beginnt die digitale Archivierung des Rhenanenrufs. Alle Artikel werden nun in einer durchsuchbaren Datenbank erfasst, um den Zugang zu unserem historischen Erbe zu erleichtern."/>
+            <column name="year" valueNumeric="2026"/>
+            <column name="month" valueNumeric="1"/>
+            <column name="page" valueNumeric="1"/>
+            <column name="created" valueDate="2026-01-08T10:00:00"/>
+            <column name="created_by" value="admin"/>
+        </insert>
+
+        <insert tableName="article_entry">
+            <column name="title" value="Chronik des Corps Rhenania"/>
+            <column name="subtitle" value="Ein Rückblick auf 150 Jahre Geschichte"/>
+            <column name="alternative_author" value="Prof. Dr. Hans Müller"/>
+            <column name="category" value="Geschichte"/>
+            <column name="text" value="Die Geschichte des Corps Rhenania reicht zurück bis ins Jahr 1870. In diesem Artikel werfen wir einen Blick auf die bedeutendsten Ereignisse und Persönlichkeiten, die unser Corps geprägt haben. Von den Gründungsjahren über die schwierigen Zeiten der Weltkriege bis zur modernen Gegenwart."/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="month" valueNumeric="12"/>
+            <column name="page" valueNumeric="5"/>
+            <column name="created" valueDate="2025-12-15T14:30:00"/>
+            <column name="created_by" value="admin"/>
+        </insert>
+
+        <insert tableName="article_entry">
+            <column name="title" value="Mensur-Tradition im 21. Jahrhundert"/>
+            <column name="alternative_author" value="AH Johann Weber"/>
+            <column name="category" value="Mensur"/>
+            <column name="text" value="Die Mensur ist und bleibt ein zentraler Bestandteil unserer Corps-Tradition. In diesem Beitrag beleuchten wir, wie sich die Mensur im Laufe der Zeit entwickelt hat und welche Bedeutung sie für die Charakterbildung unserer Mitglieder hat."/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="month" valueNumeric="11"/>
+            <column name="page" valueNumeric="12"/>
+            <column name="created" valueDate="2025-11-20T09:15:00"/>
+            <column name="created_by" value="admin"/>
+        </insert>
+
+        <insert tableName="article_entry">
+            <column name="title" value="Veranstaltungshighlights 2025"/>
+            <column name="subtitle" value="Ein Jahr voller Ereignisse"/>
+            <column name="alternative_author" value="Fuchsmajor Michael Schmidt"/>
+            <column name="category" value="Veranstaltungen"/>
+            <column name="text" value="Das Jahr 2025 war geprägt von zahlreichen Veranstaltungen: Vom Stiftungsfest über die Sommerkneipe bis zur Weihnachtsfeier. Hier ein Überblick über die Höhepunkte des vergangenen Jahres und ein Ausblick auf 2026."/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="month" valueNumeric="12"/>
+            <column name="page" valueNumeric="20"/>
+            <column name="created" valueDate="2025-12-28T16:45:00"/>
+            <column name="created_by" value="admin"/>
+        </insert>
+
+        <insert tableName="article_entry">
+            <column name="title" value="Alumninetzwerk stärken"/>
+            <column name="alternative_author" value="AHV-Vorsitzender Dr. Karl Becker"/>
+            <column name="category" value="Alumni"/>
+            <column name="text" value="Der Altherrenverband spielt eine zentrale Rolle für die Kontinuität unseres Corps. In diesem Artikel stellen wir Initiativen vor, wie wir das Netzwerk zwischen Aktivitas und Altherrenschaft weiter stärken können. Von Mentoring-Programmen bis zu gemeinsamen Veranstaltungen."/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="month" valueNumeric="10"/>
+            <column name="page" valueNumeric="8"/>
+            <column name="created" valueDate="2025-10-10T11:00:00"/>
+            <column name="created_by" value="admin"/>
+        </insert>
+
+        <insert tableName="article_entry">
+            <column name="title" value="Digitalisierung des Corps-Archivs"/>
+            <column name="subtitle" value="Moderne Technologie trifft auf Tradition"/>
+            <column name="alternative_author" value="IT-Beauftragter Thomas Fischer"/>
+            <column name="category" value="Technik"/>
+            <column name="text" value="Mit dem neuen RhenanenManager-System digitalisieren wir nicht nur unsere Verwaltung, sondern auch unser historisches Archiv. Dieser Artikel erklärt, wie die Digitalisierung funktioniert und welche Vorteile sie für alle Mitglieder bringt. Von der Artikelsuche bis zur Dokumentenverwaltung."/>
+            <column name="year" valueNumeric="2026"/>
+            <column name="month" valueNumeric="1"/>
+            <column name="page" valueNumeric="15"/>
+            <column name="created" valueDate="2026-01-05T13:20:00"/>
+            <column name="created_by" value="admin"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

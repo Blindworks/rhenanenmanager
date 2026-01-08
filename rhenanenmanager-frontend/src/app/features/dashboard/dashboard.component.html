@@ -88,7 +88,7 @@
             <h3 class="feature-title">{{ feature.title }}</h3>
             <p class="feature-description">{{ feature.description }}</p>
           </mat-card-content>
-          <button mat-button color="primary" class="feature-action">
+          <button mat-button color="primary" class="feature-action" (click)="navigateToFeature(feature.route)">
             Öffnen
             <mat-icon>arrow_forward</mat-icon>
           </button>

@@ -1,0 +1,195 @@
+<!-- Glossar Toolbar -->
+<mat-toolbar class="glossar-toolbar">
+  <div class="toolbar-container">
+    <button mat-icon-button (click)="goToDashboard()" class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="toolbar-title">
+      <mat-icon>library_books</mat-icon>
+      <span>Rhenanenruf Glossar</span>
+    </div>
+    <div class="toolbar-actions">
+      <button mat-icon-button (click)="themeService.toggleTheme()" class="theme-toggle">
+        <mat-icon>{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-button [matMenuTriggerFor]="userMenu" class="user-menu-btn">
+        <mat-icon>account_circle</mat-icon>
+        <span>{{ currentUser?.username }}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="goToDashboard()">
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Einstellungen</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
+
+<!-- Glossar Content -->
+<div class="glossar-content">
+  <!-- Header Section -->
+  <section class="header-section">
+    <h1 class="page-title">Rhenanenruf Archiv</h1>
+    <p class="page-subtitle">
+      Durchsuche das vollständige Archiv des Rhenanenrufs - der Corps-Zeitschrift mit Artikeln, Berichten und Chroniken.
+    </p>
+  </section>
+
+  <!-- Search & Filter Section -->
+  <section class="filter-section">
+    <mat-card class="filter-card">
+      <mat-card-content>
+        <div class="filter-row">
+          <!-- Search Field -->
+          <mat-form-field class="search-field" appearance="outline">
+            <mat-label>Suche nach Titel oder Inhalt</mat-label>
+            <input matInput [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" placeholder="Suchbegriff eingeben...">
+            <mat-icon matPrefix>search</mat-icon>
+            <button mat-icon-button matSuffix (click)="onSearch()" *ngIf="searchTerm">
+              <mat-icon>send</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <!-- Category Filter -->
+          <mat-form-field class="filter-field" appearance="outline">
+            <mat-label>Kategorie</mat-label>
+            <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onCategoryChange()">
+              <mat-option value="">Alle Kategorien</mat-option>
+              <mat-option *ngFor="let category of categories()" [value]="category">
+                {{ category }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matPrefix>category</mat-icon>
+          </mat-form-field>
+
+          <!-- Year Filter -->
+          <mat-form-field class="filter-field" appearance="outline">
+            <mat-label>Jahr</mat-label>
+            <mat-select [(ngModel)]="selectedYear" (selectionChange)="onYearChange()">
+              <mat-option [value]="null">Alle Jahre</mat-option>
+              <mat-option *ngFor="let year of years()" [value]="year">
+                {{ year }}
+              </mat-option>
+            </mat-select>
+            <mat-icon matPrefix>event</mat-icon>
+          </mat-form-field>
+
+          <!-- Clear Filters Button -->
+          <button mat-raised-button color="accent" (click)="clearFilters()" class="clear-btn">
+            <mat-icon>clear_all</mat-icon>
+            Filter zurücksetzen
+          </button>
+        </div>
+
+        <!-- Active Filters Display -->
+        <div class="active-filters" *ngIf="searchTerm || selectedCategory || selectedYear">
+          <span class="filter-label">Aktive Filter:</span>
+          <mat-chip *ngIf="searchTerm" (removed)="searchTerm = ''; onSearch()">
+            <mat-icon>search</mat-icon>
+            {{ searchTerm }}
+            <button matChipRemove><mat-icon>cancel</mat-icon></button>
+          </mat-chip>
+          <mat-chip *ngIf="selectedCategory" (removed)="selectedCategory = ''; onCategoryChange()">
+            <mat-icon>category</mat-icon>
+            {{ selectedCategory }}
+            <button matChipRemove><mat-icon>cancel</mat-icon></button>
+          </mat-chip>
+          <mat-chip *ngIf="selectedYear" (removed)="selectedYear = null; onYearChange()">
+            <mat-icon>event</mat-icon>
+            {{ selectedYear }}
+            <button matChipRemove><mat-icon>cancel</mat-icon></button>
+          </mat-chip>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- Loading Spinner -->
+  <div class="loading-container" *ngIf="loading()">
+    <mat-spinner></mat-spinner>
+    <p>Artikel werden geladen...</p>
+  </div>
+
+  <!-- Articles Grid -->
+  <section class="articles-section" *ngIf="!loading()">
+    <div class="articles-header">
+      <h2 class="section-title">
+        <mat-icon>article</mat-icon>
+        Artikel ({{ totalElements }})
+      </h2>
+    </div>
+
+    <!-- No Results Message -->
+    <div class="no-results" *ngIf="articles().length === 0">
+      <mat-icon>search_off</mat-icon>
+      <h3>Keine Artikel gefunden</h3>
+      <p>Versuche einen anderen Suchbegriff oder Filter.</p>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="articles-grid" *ngIf="articles().length > 0">
+      <mat-card class="article-card" *ngFor="let article of articles()">
+        <mat-card-header>
+          <div class="article-meta">
+            <mat-chip class="issue-chip">
+              <mat-icon>calendar_month</mat-icon>
+              {{ getFormattedIssue(article) }}
+            </mat-chip>
+            <mat-chip class="category-chip" *ngIf="article.category">
+              <mat-icon>label</mat-icon>
+              {{ article.category }}
+            </mat-chip>
+            <mat-chip class="page-chip" *ngIf="article.page">
+              <mat-icon>description</mat-icon>
+              Seite {{ article.page }}
+            </mat-chip>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content>
+          <h3 class="article-title">{{ article.title }}</h3>
+          <p class="article-subtitle" *ngIf="article.subtitle">{{ article.subtitle }}</p>
+          <p class="article-author" *ngIf="article.alternativeAuthor">
+            <mat-icon>person</mat-icon>
+            {{ article.alternativeAuthor }}
+          </p>
+          <p class="article-preview" *ngIf="article.text">
+            {{ getTextPreview(article) }}
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button color="primary">
+            <mat-icon>visibility</mat-icon>
+            Details anzeigen
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <!-- Pagination -->
+    <mat-paginator
+      *ngIf="articles().length > 0"
+      [length]="totalElements"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 20, 50, 100]"
+      [pageIndex]="currentPage"
+      (page)="onPageChange($event)"
+      class="glossar-paginator">
+    </mat-paginator>
+  </section>
+</div>

@@ -1,0 +1,753 @@
+// ===================================================================
+// Rhenanenruf Glossar Component Styles
+// Theme-aware styling using CSS custom properties
+// ===================================================================
+
+// ===================================================================
+// Toolbar Styles
+// ===================================================================
+
+.glossar-toolbar {
+  background: var(--color-toolbar-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-toolbar-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+
+  .toolbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
+    height: 64px;
+  }
+
+  .back-btn {
+    color: var(--color-text-secondary);
+    margin-right: 16px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--color-primary);
+      background: var(--color-hover);
+    }
+  }
+
+  .toolbar-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+
+    mat-icon {
+      color: var(--color-primary);
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+
+    span {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .theme-toggle {
+      color: var(--color-text-secondary);
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: var(--color-primary);
+        background: var(--color-hover);
+      }
+    }
+
+    button[mat-icon-button] {
+      color: var(--color-text-secondary);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--color-hover);
+      }
+    }
+
+    .user-menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--color-hover);
+        border-color: var(--color-primary);
+        transform: translateY(-1px);
+      }
+
+      span {
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      mat-icon:first-child {
+        color: var(--color-primary);
+      }
+    }
+  }
+}
+
+// ===================================================================
+// Main Content Area
+// ===================================================================
+
+.glossar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  min-height: calc(100vh - 64px);
+}
+
+// ===================================================================
+// Header Section
+// ===================================================================
+
+.header-section {
+  margin-bottom: 32px;
+  text-align: center;
+
+  .page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0 0 12px 0;
+    letter-spacing: -0.02em;
+  }
+
+  .page-subtitle {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+// ===================================================================
+// Filter Section
+// ===================================================================
+
+.filter-section {
+  margin-bottom: 32px;
+
+  .filter-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    mat-card-content {
+      padding: 24px;
+    }
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  .search-field {
+    flex: 2;
+    min-width: 300px;
+
+    @media (max-width: 1024px) {
+      min-width: 100%;
+    }
+  }
+
+  .filter-field {
+    flex: 1;
+    min-width: 200px;
+
+    @media (max-width: 1024px) {
+      min-width: 100%;
+    }
+  }
+
+  .clear-btn {
+    height: 56px;
+    padding: 0 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+
+    mat-icon {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+  }
+
+  // Material Form Field Customization
+  ::ng-deep {
+    .mat-mdc-form-field {
+      width: 100%;
+
+      .mat-mdc-text-field-wrapper {
+        background: var(--color-bg-base);
+        border-radius: 12px;
+      }
+
+      .mat-mdc-form-field-flex {
+        align-items: center;
+      }
+
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: var(--color-border);
+      }
+
+      &:hover .mdc-notched-outline {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+          border-color: var(--color-primary);
+        }
+      }
+
+      &.mat-focused .mdc-notched-outline {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+          border-color: var(--color-primary);
+          border-width: 2px;
+        }
+      }
+
+      .mat-mdc-form-field-icon-prefix,
+      .mat-mdc-form-field-icon-suffix {
+        color: var(--color-text-secondary);
+      }
+
+      input,
+      .mat-mdc-select {
+        color: var(--color-text-primary);
+      }
+
+      label {
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+}
+
+// ===================================================================
+// Active Filters Display
+// ===================================================================
+
+.active-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+
+  .filter-label {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    margin-right: 8px;
+  }
+
+  ::ng-deep {
+    mat-chip {
+      background: var(--color-primary-alpha);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-weight: 500;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--color-primary);
+        color: white;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+      }
+
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+
+      button[matChipRemove] {
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+}
+
+// ===================================================================
+// Loading State
+// ===================================================================
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 24px;
+
+  mat-spinner {
+    ::ng-deep circle {
+      stroke: var(--color-primary);
+    }
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+// ===================================================================
+// Articles Section
+// ===================================================================
+
+.articles-section {
+  .articles-header {
+    margin-bottom: 24px;
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+
+      mat-icon {
+        color: var(--color-primary);
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+}
+
+// ===================================================================
+// No Results State
+// ===================================================================
+
+.no-results {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--color-bg-card);
+  border: 2px dashed var(--color-border);
+  border-radius: 16px;
+  margin: 32px 0;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: var(--color-text-tertiary);
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+}
+
+// ===================================================================
+// Articles Grid
+// ===================================================================
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 480px) {
+    gap: 16px;
+  }
+}
+
+// ===================================================================
+// Article Card
+// ===================================================================
+
+.article-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+
+    .article-title {
+      color: var(--color-primary);
+    }
+  }
+
+  mat-card-header {
+    padding: 20px 20px 16px 20px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-base);
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+
+    ::ng-deep {
+      mat-chip {
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 4px 10px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        mat-icon {
+          font-size: 14px;
+          width: 14px;
+          height: 14px;
+        }
+      }
+
+      .issue-chip {
+        background: var(--color-primary-alpha);
+        color: var(--color-primary);
+        border: 1px solid var(--color-primary);
+      }
+
+      .category-chip {
+        background: var(--color-bg-card);
+        color: var(--color-text-secondary);
+        border: 1px solid var(--color-border);
+      }
+
+      .page-chip {
+        background: var(--color-bg-card);
+        color: var(--color-text-tertiary);
+        border: 1px solid var(--color-border);
+      }
+    }
+  }
+
+  mat-card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .article-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin: 0;
+      line-height: 1.4;
+      transition: color 0.2s ease;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-subtitle {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      margin: 0;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-author {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-style: italic;
+
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        color: var(--color-text-secondary);
+      }
+    }
+
+    .article-preview {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+  }
+
+  mat-card-actions {
+    padding: 12px 20px 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid var(--color-border);
+
+    button {
+      color: var(--color-primary);
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      mat-icon {
+        margin-right: 6px;
+      }
+
+      &:hover {
+        background: var(--color-primary-alpha);
+      }
+    }
+  }
+}
+
+// ===================================================================
+// Pagination
+// ===================================================================
+
+.glossar-paginator {
+  margin-top: 40px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 8px;
+
+  ::ng-deep {
+    .mat-mdc-paginator-container {
+      padding: 8px 16px;
+      min-height: 56px;
+    }
+
+    .mat-mdc-paginator-page-size-label,
+    .mat-mdc-paginator-range-label {
+      color: var(--color-text-secondary);
+      font-size: 14px;
+      margin: 0 16px;
+    }
+
+    .mat-mdc-paginator-page-size-select {
+      margin: 0 8px;
+
+      .mat-mdc-form-field-flex {
+        background: var(--color-bg-base);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 4px 8px;
+      }
+    }
+
+    .mat-mdc-icon-button {
+      color: var(--color-text-secondary);
+      transition: all 0.2s ease;
+
+      &:not([disabled]):hover {
+        background: var(--color-hover);
+        color: var(--color-primary);
+      }
+
+      &[disabled] {
+        opacity: 0.3;
+      }
+    }
+  }
+}
+
+// ===================================================================
+// Responsive Design
+// ===================================================================
+
+@media (max-width: 960px) {
+  .glossar-content {
+    padding: 24px 12px;
+  }
+
+  .header-section {
+    .page-title {
+      font-size: 28px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+    }
+  }
+
+  .articles-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .glossar-toolbar {
+    .toolbar-container {
+      padding: 0 8px;
+    }
+
+    .toolbar-title {
+      span {
+        font-size: 16px;
+      }
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .toolbar-actions {
+      .user-menu-btn span {
+        display: none;
+      }
+    }
+  }
+
+  .header-section {
+    .page-title {
+      font-size: 24px;
+    }
+  }
+
+  .filter-section {
+    .filter-card mat-card-content {
+      padding: 16px;
+    }
+  }
+
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ===================================================================
+// Animations
+// ===================================================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.article-card {
+  animation: fadeIn 0.4s ease-out backwards;
+
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.05}s;
+    }
+  }
+}

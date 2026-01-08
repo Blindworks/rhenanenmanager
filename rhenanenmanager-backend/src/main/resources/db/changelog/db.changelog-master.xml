@@ -37,4 +37,7 @@
     <!-- v1.0: User activity tracking -->
     <include file="db/changelog/changesets/v1.0/012-create-user-activity-tracking-table.xml"/>
 
+    <!-- v1.0: Article Entry for Rhenanenruf Glossar -->
+    <include file="db/changelog/changesets/v1.0/013-create-article-entry-table.xml"/>
+
 </databaseChangeLog>
