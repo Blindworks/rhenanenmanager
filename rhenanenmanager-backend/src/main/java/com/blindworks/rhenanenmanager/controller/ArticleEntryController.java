@@ -1,14 +1,17 @@
 package com.blindworks.rhenanenmanager.controller;
 
+import com.blindworks.rhenanenmanager.domain.dto.request.ArticleEntryRequest;
 import com.blindworks.rhenanenmanager.domain.dto.response.ArticleEntryResponse;
 import com.blindworks.rhenanenmanager.service.ArticleEntryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -100,5 +103,34 @@ public class ArticleEntryController {
         log.info("GET /api/articles/years");
         List<Integer> years = articleEntryService.getAllYears();
         return ResponseEntity.ok(years);
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create article", description = "Create a new article entry")
+    public ResponseEntity<ArticleEntryResponse> createArticle(@Valid @RequestBody ArticleEntryRequest request) {
+        log.info("POST /api/articles - title: {}", request.getTitle());
+        ArticleEntryResponse article = articleEntryService.createArticle(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(article);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Update article", description = "Update an existing article entry")
+    public ResponseEntity<ArticleEntryResponse> updateArticle(
+            @PathVariable Long id,
+            @Valid @RequestBody ArticleEntryRequest request) {
+        log.info("PUT /api/articles/{} - title: {}", id, request.getTitle());
+        ArticleEntryResponse article = articleEntryService.updateArticle(id, request);
+        return ResponseEntity.ok(article);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Delete article", description = "Delete an article entry by ID")
+    public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
+        log.info("DELETE /api/articles/{}", id);
+        articleEntryService.deleteArticle(id);
+        return ResponseEntity.noContent().build();
     }
 }

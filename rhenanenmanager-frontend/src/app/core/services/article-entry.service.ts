@@ -69,4 +69,25 @@ export class ArticleEntryService {
   getAllYears(): Observable<number[]> {
     return this.http.get<number[]>(`${this.apiUrl}/years`);
   }
+
+  /**
+   * Create a new article.
+   */
+  createArticle(article: Partial<ArticleEntry>): Observable<ArticleEntry> {
+    return this.http.post<ArticleEntry>(this.apiUrl, article);
+  }
+
+  /**
+   * Update an existing article.
+   */
+  updateArticle(id: number, article: Partial<ArticleEntry>): Observable<ArticleEntry> {
+    return this.http.put<ArticleEntry>(`${this.apiUrl}/${id}`, article);
+  }
+
+  /**
+   * Delete an article by ID.
+   */
+  deleteArticle(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

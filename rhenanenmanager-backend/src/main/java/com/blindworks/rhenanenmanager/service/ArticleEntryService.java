@@ -1,5 +1,6 @@
 package com.blindworks.rhenanenmanager.service;
 
+import com.blindworks.rhenanenmanager.domain.dto.request.ArticleEntryRequest;
 import com.blindworks.rhenanenmanager.domain.dto.response.ArticleEntryResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,4 +46,19 @@ public interface ArticleEntryService {
      * Get all distinct years.
      */
     List<Integer> getAllYears();
+
+    /**
+     * Create a new article.
+     */
+    ArticleEntryResponse createArticle(ArticleEntryRequest request);
+
+    /**
+     * Update an existing article.
+     */
+    ArticleEntryResponse updateArticle(Long id, ArticleEntryRequest request);
+
+    /**
+     * Delete an article by ID.
+     */
+    void deleteArticle(Long id);
 }
