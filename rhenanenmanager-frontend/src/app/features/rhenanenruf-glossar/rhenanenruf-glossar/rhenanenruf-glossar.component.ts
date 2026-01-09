@@ -14,10 +14,14 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ArticleEntryService } from '../../../core/services/article-entry.service';
 import { ThemeService } from '../../../core/services/theme.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ArticleEntry, getFormattedIssue, getTextPreview } from '../../../core/models/article-entry.model';
+import { ArticleEntryDialogComponent } from '../article-entry-dialog/article-entry-dialog.component';
 
 @Component({
   selector: 'app-rhenanenruf-glossar',
@@ -36,7 +40,9 @@ import { ArticleEntry, getFormattedIssue, getTextPreview } from '../../../core/m
     MatPaginatorModule,
     MatMenuModule,
     MatDividerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   templateUrl: './rhenanenruf-glossar.component.html',
   styleUrl: './rhenanenruf-glossar.component.scss'
@@ -45,6 +51,8 @@ export class RhenanenrufGlossarComponent implements OnInit {
   private articleService = inject(ArticleEntryService);
   private router = inject(Router);
   private authService = inject(AuthService);
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
   themeService = inject(ThemeService);
 
   currentUser = this.authService.getCurrentUser();
@@ -192,5 +200,75 @@ export class RhenanenrufGlossarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(ArticleEntryDialogComponent, {
+      width: '600px',
+      data: {
+        mode: 'create',
+        categories: this.categories()
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.articleService.createArticle(result).subscribe({
+          next: () => {
+            this.snackBar.open('Artikel erfolgreich erstellt', 'OK', { duration: 3000 });
+            this.loadArticles();
+          },
+          error: (error) => {
+            console.error('Error creating article:', error);
+            this.snackBar.open('Fehler beim Erstellen des Artikels', 'OK', { duration: 3000 });
+          }
+        });
+      }
+    });
+  }
+
+  openEditDialog(article: ArticleEntry): void {
+    const dialogRef = this.dialog.open(ArticleEntryDialogComponent, {
+      width: '600px',
+      data: {
+        mode: 'edit',
+        article: article,
+        categories: this.categories()
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.id) {
+        this.articleService.updateArticle(result.id, result).subscribe({
+          next: () => {
+            this.snackBar.open('Artikel erfolgreich aktualisiert', 'OK', { duration: 3000 });
+            this.loadArticles();
+          },
+          error: (error) => {
+            console.error('Error updating article:', error);
+            this.snackBar.open('Fehler beim Aktualisieren des Artikels', 'OK', { duration: 3000 });
+          }
+        });
+      }
+    });
+  }
+
+  deleteArticle(article: ArticleEntry): void {
+    if (confirm(`Möchten Sie den Artikel "${article.title}" wirklich löschen?`)) {
+      this.articleService.deleteArticle(article.id).subscribe({
+        next: () => {
+          this.snackBar.open('Artikel erfolgreich gelöscht', 'OK', { duration: 3000 });
+          this.loadArticles();
+        },
+        error: (error) => {
+          console.error('Error deleting article:', error);
+          this.snackBar.open('Fehler beim Löschen des Artikels', 'OK', { duration: 3000 });
+        }
+      });
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.currentUser?.roles?.includes('ADMIN') || false;
   }
 }
