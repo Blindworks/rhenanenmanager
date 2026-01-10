@@ -28,18 +28,16 @@
 
         <g class="links">
           @for (link of links(); track link.connection.connection.id) {
-            <line
-              [attr.x1]="link.source.x + 90"
-              [attr.y1]="link.source.y + 50"
-              [attr.x2]="link.target.x + 90"
-              [attr.y2]="link.target.y + 50"
+            <path
+              [attr.d]="getLinkPath(link)"
               [attr.stroke]="getLinkColor(link)"
               [attr.stroke-width]="isLinkHighlighted(link) ? 3 : 2"
               [attr.stroke-opacity]="isLinkHighlighted(link) ? 1 : 0.4"
+              [attr.fill]="'none'"
               [attr.marker-end]="'url(#arrowhead-' + link.connection.connection.connectionType + ')'"
               class="link"
               [class.highlighted]="isLinkHighlighted(link)">
-            </line>
+            </path>
           }
         </g>
       </svg>

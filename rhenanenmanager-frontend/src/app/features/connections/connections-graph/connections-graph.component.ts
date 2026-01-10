@@ -265,7 +265,50 @@ export class ConnectionsGraphComponent implements OnInit, OnChanges {
   }
 
   getLinkPath(link: GraphLink): string {
-    return `M ${link.source.x},${link.source.y} L ${link.target.x},${link.target.y}`;
+    // Card centers (adjusted in HTML with +90, +50)
+    const sx = link.source.x + 90;
+    const sy = link.source.y + 50;
+    const tx = link.target.x + 90;
+    const ty = link.target.y + 50;
+
+    const radius = 12; // Radius for rounded corners
+
+    // Calculate midpoint for vertical transition
+    const midY = (sy + ty) / 2;
+
+    // Build orthogonal path with rounded corners
+    let path = `M ${sx},${sy}`; // Start at source center
+
+    if (Math.abs(sx - tx) < 5) {
+      // Nodes are vertically aligned - straight vertical line
+      path += ` L ${tx},${ty}`;
+    } else {
+      // Orthogonal routing: down -> horizontal -> down
+      const direction = tx > sx ? 1 : -1; // Right or left
+
+      // Go down to midpoint (leave space for radius)
+      if (Math.abs(midY - sy) > radius) {
+        path += ` L ${sx},${midY - radius}`;
+        // Rounded corner transitioning to horizontal
+        path += ` Q ${sx},${midY} ${sx + radius * direction},${midY}`;
+      } else {
+        path += ` L ${sx},${midY}`;
+      }
+
+      // Horizontal line (leave space for radius at end)
+      if (Math.abs(tx - sx) > radius * 2) {
+        path += ` L ${tx - radius * direction},${midY}`;
+        // Rounded corner transitioning to vertical
+        path += ` Q ${tx},${midY} ${tx},${midY + radius}`;
+      } else {
+        path += ` L ${tx},${midY}`;
+      }
+
+      // Final vertical segment to target
+      path += ` L ${tx},${ty}`;
+    }
+
+    return path;
   }
 
   getLinkColor(link: GraphLink): string {
