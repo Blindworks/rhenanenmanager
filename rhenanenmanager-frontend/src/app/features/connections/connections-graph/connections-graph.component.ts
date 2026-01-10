@@ -31,9 +31,8 @@ interface GraphNode {
   profile: Profile;
   x: number;
   y: number;
-  vx: number;
-  vy: number;
-  fixed: boolean;
+  level?: number;
+  column?: number;
 }
 
 interface GraphLink {
@@ -75,15 +74,9 @@ export class ConnectionsGraphComponent implements OnInit, OnChanges {
 
   private width = 1200;
   private height = 800;
-  private centerX = this.width / 2;
-  private centerY = this.height / 2;
-  private isDragging = false;
-  private draggedNode: GraphNode | null = null;
-  private animationFrameId: number | null = null;
 
   ngOnInit(): void {
     this.buildGraph();
-    this.startSimulation();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -93,7 +86,7 @@ export class ConnectionsGraphComponent implements OnInit, OnChanges {
   }
 
   ngOnDestroy(): void {
-    this.stopSimulation();
+    // No cleanup needed
   }
 
   private buildGraph(): void {
@@ -128,134 +121,107 @@ export class ConnectionsGraphComponent implements OnInit, OnChanges {
     return {
       id: profile.id,
       profile,
-      x: this.centerX + (Math.random() - 0.5) * 400,
-      y: this.centerY + (Math.random() - 0.5) * 400,
-      vx: 0,
-      vy: 0,
-      fixed: false
+      x: 0,
+      y: 0,
+      level: 0,
+      column: 0
     };
   }
 
   private layoutNodes(): void {
     const nodes = this.nodes();
+    const links = this.links();
     if (nodes.length === 0) return;
 
-    const radius = Math.min(this.width, this.height) * 0.35;
-    const angleStep = (2 * Math.PI) / nodes.length;
-
-    nodes.forEach((node, i) => {
-      if (!node.fixed) {
-        node.x = this.centerX + Math.cos(i * angleStep) * radius;
-        node.y = this.centerY + Math.sin(i * angleStep) * radius;
-      }
-    });
-  }
-
-  private startSimulation(): void {
-    const simulate = () => {
-      this.applyForces();
-      this.animationFrameId = requestAnimationFrame(simulate);
-    };
-    this.animationFrameId = requestAnimationFrame(simulate);
-  }
-
-  private stopSimulation(): void {
-    if (this.animationFrameId !== null) {
-      cancelAnimationFrame(this.animationFrameId);
-    }
-  }
-
-  private applyForces(): void {
-    const nodes = this.nodes();
-    const links = this.links();
-
-    const alpha = 0.1;
-    const linkDistance = 150;
-    const linkStrength = 0.3;
-    const chargeStrength = -300;
-    const centerStrength = 0.05;
-
-    nodes.forEach(node => {
-      if (!node.fixed) {
-        node.vx *= 0.9;
-        node.vy *= 0.9;
-
-        const dx = this.centerX - node.x;
-        const dy = this.centerY - node.y;
-        node.vx += dx * centerStrength;
-        node.vy += dy * centerStrength;
-      }
-    });
-
-    nodes.forEach((a, i) => {
-      nodes.forEach((b, j) => {
-        if (i >= j) return;
-
-        const dx = b.x - a.x;
-        const dy = b.y - a.y;
-        const distance = Math.sqrt(dx * dx + dy * dy) || 1;
-        const force = chargeStrength / (distance * distance);
-
-        if (!a.fixed) {
-          a.vx -= (dx / distance) * force;
-          a.vy -= (dy / distance) * force;
-        }
-        if (!b.fixed) {
-          b.vx += (dx / distance) * force;
-          b.vy += (dy / distance) * force;
-        }
-      });
-    });
+    // Build adjacency lists for hierarchy detection
+    const outgoing = new Map<number, Set<number>>();
+    const incoming = new Map<number, Set<number>>();
 
     links.forEach(link => {
-      const dx = link.target.x - link.source.x;
-      const dy = link.target.y - link.source.y;
-      const distance = Math.sqrt(dx * dx + dy * dy) || 1;
-      const force = (distance - linkDistance) * linkStrength;
+      const sourceId = link.source.id;
+      const targetId = link.target.id;
+      const type = link.connection.connection.connectionType;
 
-      if (!link.source.fixed) {
-        link.source.vx += (dx / distance) * force;
-        link.source.vy += (dy / distance) * force;
-      }
-      if (!link.target.fixed) {
-        link.target.vx -= (dx / distance) * force;
-        link.target.vy -= (dy / distance) * force;
+      // For Leibbursch connections, create hierarchy
+      if (type === ConnectionType.LEIBBURSCH) {
+        if (!outgoing.has(sourceId)) outgoing.set(sourceId, new Set());
+        if (!incoming.has(targetId)) incoming.set(targetId, new Set());
+        outgoing.get(sourceId)!.add(targetId);
+        incoming.get(targetId)!.add(sourceId);
       }
     });
+
+    // Find root nodes (nodes with no incoming Leibbursch connections)
+    const roots: GraphNode[] = [];
+    const nodeMap = new Map(nodes.map(n => [n.id, n]));
 
     nodes.forEach(node => {
-      if (!node.fixed) {
-        node.x += node.vx * alpha;
-        node.y += node.vy * alpha;
-
-        const padding = 60;
-        node.x = Math.max(padding, Math.min(this.width - padding, node.x));
-        node.y = Math.max(padding, Math.min(this.height - padding, node.y));
+      if (!incoming.has(node.id) || incoming.get(node.id)!.size === 0) {
+        roots.push(node);
       }
     });
-  }
 
-  onNodeMouseDown(event: MouseEvent, node: GraphNode): void {
-    event.preventDefault();
-    this.isDragging = true;
-    this.draggedNode = node;
-    node.fixed = true;
-  }
+    // Assign levels using BFS
+    const visited = new Set<number>();
+    const queue: Array<{ node: GraphNode; level: number }> = [];
 
-  onGraphMouseMove(event: MouseEvent): void {
-    if (this.isDragging && this.draggedNode && this.graphContainer) {
-      const rect = this.graphContainer.nativeElement.getBoundingClientRect();
-      this.draggedNode.x = event.clientX - rect.left;
-      this.draggedNode.y = event.clientY - rect.top;
+    roots.forEach(root => {
+      root.level = 0;
+      queue.push({ node: root, level: 0 });
+      visited.add(root.id);
+    });
+
+    let maxLevel = 0;
+    while (queue.length > 0) {
+      const { node, level } = queue.shift()!;
+      maxLevel = Math.max(maxLevel, level);
+
+      if (outgoing.has(node.id)) {
+        outgoing.get(node.id)!.forEach(childId => {
+          if (!visited.has(childId)) {
+            const childNode = nodeMap.get(childId);
+            if (childNode) {
+              childNode.level = level + 1;
+              queue.push({ node: childNode, level: level + 1 });
+              visited.add(childId);
+            }
+          }
+        });
+      }
     }
-  }
 
-  onGraphMouseUp(): void {
-    if (this.draggedNode) {
-      this.draggedNode.fixed = false;
-      this.draggedNode = null;
-    }
-    this.isDragging = false;
+    // Assign levels to unvisited nodes (not part of Leibbursch hierarchy)
+    nodes.forEach(node => {
+      if (!visited.has(node.id)) {
+        node.level = maxLevel + 1;
+      }
+    });
+
+    // Group nodes by level and assign columns
+    const levels = new Map<number, GraphNode[]>();
+    nodes.forEach(node => {
+      if (!levels.has(node.level!)) {
+        levels.set(node.level!, []);
+      }
+      levels.get(node.level!)!.push(node);
+    });
+
+    // Calculate positions
+    const verticalSpacing = 150;
+    const horizontalSpacing = 200;
+    const padding = 100;
+
+    levels.forEach((levelNodes, level) => {
+      const totalWidth = (levelNodes.length - 1) * horizontalSpacing;
+      const startX = (this.width - totalWidth) / 2;
+      const y = padding + level * verticalSpacing;
+
+      levelNodes.forEach((node, index) => {
+        node.column = index;
+        node.x = startX + index * horizontalSpacing;
+        node.y = y;
+      });
+    });
   }
 
   onNodeClick(node: GraphNode): void {

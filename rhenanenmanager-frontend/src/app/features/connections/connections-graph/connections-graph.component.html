@@ -8,10 +8,7 @@
   } @else {
     <div
       #graphContainer
-      class="graph-container"
-      (mousemove)="onGraphMouseMove($event)"
-      (mouseup)="onGraphMouseUp()"
-      (mouseleave)="onGraphMouseUp()">
+      class="graph-container">
 
       <svg [attr.width]="1200" [attr.height]="800" class="graph-svg">
         <defs>
@@ -53,7 +50,6 @@
               class="node"
               [class.selected]="selectedNode() === node"
               [class.highlighted]="isNodeHighlighted(node)"
-              (mousedown)="onNodeMouseDown($event, node)"
               (click)="onNodeClick(node)"
               (mouseenter)="onNodeMouseEnter(node)"
               (mouseleave)="onNodeMouseLeave()">
@@ -162,7 +158,7 @@
       </div>
       <div class="legend-hint">
         <mat-icon>info</mat-icon>
-        <span>Klicken Sie auf einen Knoten für Details. Ziehen Sie Knoten zum Verschieben.</span>
+        <span>Klicken Sie auf einen Knoten, um Details und Beziehungen anzuzeigen.</span>
       </div>
     </div>
   }
