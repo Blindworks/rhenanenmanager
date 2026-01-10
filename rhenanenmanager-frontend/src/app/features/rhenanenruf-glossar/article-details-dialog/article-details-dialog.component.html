@@ -1,0 +1,112 @@
+<div class="dialog-header">
+  <h2 mat-dialog-title>
+    <mat-icon>article</mat-icon>
+    Artikel Details
+  </h2>
+  <button mat-icon-button (click)="onClose()" class="close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="dialog-content">
+  <!-- Metadata Chips -->
+  <div class="metadata-chips">
+    <mat-chip class="issue-chip">
+      <mat-icon>calendar_month</mat-icon>
+      {{ getFormattedIssue() }}
+    </mat-chip>
+    <mat-chip class="category-chip" *ngIf="article.category">
+      <mat-icon>label</mat-icon>
+      {{ article.category }}
+    </mat-chip>
+    <mat-chip class="page-chip" *ngIf="article.page">
+      <mat-icon>description</mat-icon>
+      Seite {{ article.page }}
+    </mat-chip>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Title and Subtitle -->
+  <div class="title-section">
+    <h1 class="article-title">{{ article.title }}</h1>
+    <h2 class="article-subtitle" *ngIf="article.subtitle">{{ article.subtitle }}</h2>
+  </div>
+
+  <!-- Author -->
+  <div class="info-row" *ngIf="article.alternativeAuthor">
+    <div class="info-label">
+      <mat-icon>person</mat-icon>
+      Autor
+    </div>
+    <div class="info-value">{{ article.alternativeAuthor }}</div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Publishing Details -->
+  <div class="details-section">
+    <h3 class="section-title">
+      <mat-icon>info</mat-icon>
+      Veröffentlichungsdetails
+    </h3>
+
+    <div class="info-grid">
+      <div class="info-row">
+        <div class="info-label">
+          <mat-icon>event</mat-icon>
+          Jahr
+        </div>
+        <div class="info-value">{{ article.year || 'Nicht angegeben' }}</div>
+      </div>
+
+      <div class="info-row" *ngIf="article.month">
+        <div class="info-label">
+          <mat-icon>calendar_today</mat-icon>
+          Monat
+        </div>
+        <div class="info-value">{{ article.month }}</div>
+      </div>
+
+      <div class="info-row" *ngIf="article.date">
+        <div class="info-label">
+          <mat-icon>schedule</mat-icon>
+          Datum
+        </div>
+        <div class="info-value">{{ formatDate(article.date) }}</div>
+      </div>
+
+      <div class="info-row" *ngIf="article.page">
+        <div class="info-label">
+          <mat-icon>menu_book</mat-icon>
+          Seite
+        </div>
+        <div class="info-value">{{ article.page }}</div>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Article Text -->
+  <div class="text-section" *ngIf="article.text">
+    <h3 class="section-title">
+      <mat-icon>subject</mat-icon>
+      Artikeltext
+    </h3>
+    <div class="article-text">{{ article.text }}</div>
+  </div>
+
+  <!-- No Text Message -->
+  <div class="no-text" *ngIf="!article.text">
+    <mat-icon>description</mat-icon>
+    <p>Kein Artikeltext verfügbar</p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="onClose()">
+    <mat-icon>close</mat-icon>
+    Schließen
+  </button>
+</mat-dialog-actions>

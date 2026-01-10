@@ -22,6 +22,7 @@ import { ThemeService } from '../../../core/services/theme.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ArticleEntry, getFormattedIssue, getTextPreview } from '../../../core/models/article-entry.model';
 import { ArticleEntryDialogComponent } from '../article-entry-dialog/article-entry-dialog.component';
+import { ArticleDetailsDialogComponent } from '../article-details-dialog/article-details-dialog.component';
 
 @Component({
   selector: 'app-rhenanenruf-glossar',
@@ -266,6 +267,14 @@ export class RhenanenrufGlossarComponent implements OnInit {
         }
       });
     }
+  }
+
+  openDetailsDialog(article: ArticleEntry): void {
+    this.dialog.open(ArticleDetailsDialogComponent, {
+      width: '800px',
+      maxWidth: '90vw',
+      data: article
+    });
   }
 
   isAdmin(): boolean {
