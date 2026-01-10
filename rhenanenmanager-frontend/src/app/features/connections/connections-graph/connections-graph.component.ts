@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 import {
   ConnectionWithProfiles,
   Profile,
@@ -50,7 +51,8 @@ interface GraphLink {
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDividerModule
   ],
   templateUrl: './connections-graph.component.html',
   styleUrl: './connections-graph.component.scss'
@@ -72,8 +74,10 @@ export class ConnectionsGraphComponent implements OnInit, OnChanges {
   connectionTypeIcons = CONNECTION_TYPE_ICONS;
   connectionTypes = Object.values(ConnectionType) as ConnectionType[];
 
-  private width = 1200;
-  private height = 800;
+  private width = 1400;
+  private height = 900;
+  private cardWidth = 180;
+  private cardHeight = 100;
 
   ngOnInit(): void {
     this.buildGraph();
@@ -207,13 +211,13 @@ export class ConnectionsGraphComponent implements OnInit, OnChanges {
     });
 
     // Calculate positions
-    const verticalSpacing = 150;
-    const horizontalSpacing = 200;
-    const padding = 100;
+    const verticalSpacing = 180;
+    const horizontalSpacing = 220;
+    const padding = 80;
 
     levels.forEach((levelNodes, level) => {
       const totalWidth = (levelNodes.length - 1) * horizontalSpacing;
-      const startX = (this.width - totalWidth) / 2;
+      const startX = (this.width - totalWidth - this.cardWidth) / 2;
       const y = padding + level * verticalSpacing;
 
       levelNodes.forEach((node, index) => {

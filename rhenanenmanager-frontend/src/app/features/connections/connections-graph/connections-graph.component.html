@@ -10,14 +10,14 @@
       #graphContainer
       class="graph-container">
 
-      <svg [attr.width]="1200" [attr.height]="800" class="graph-svg">
+      <svg [attr.width]="1400" [attr.height]="900" class="graph-svg">
         <defs>
           @for (type of connectionTypes; track type) {
             <marker
               [attr.id]="'arrowhead-' + type"
               markerWidth="10"
               markerHeight="10"
-              refX="25"
+              refX="150"
               refY="3"
               orient="auto"
               markerUnits="strokeWidth">
@@ -29,10 +29,10 @@
         <g class="links">
           @for (link of links(); track link.connection.connection.id) {
             <line
-              [attr.x1]="link.source.x"
-              [attr.y1]="link.source.y"
-              [attr.x2]="link.target.x"
-              [attr.y2]="link.target.y"
+              [attr.x1]="link.source.x + 90"
+              [attr.y1]="link.source.y + 50"
+              [attr.x2]="link.target.x + 90"
+              [attr.y2]="link.target.y + 50"
               [attr.stroke]="getLinkColor(link)"
               [attr.stroke-width]="isLinkHighlighted(link) ? 3 : 2"
               [attr.stroke-opacity]="isLinkHighlighted(link) ? 1 : 0.4"
@@ -42,84 +42,74 @@
             </line>
           }
         </g>
-
-        <g class="nodes">
-          @for (node of nodes(); track node.id) {
-            <g
-              [attr.transform]="'translate(' + node.x + ',' + node.y + ')'"
-              class="node"
-              [class.selected]="selectedNode() === node"
-              [class.highlighted]="isNodeHighlighted(node)"
-              (click)="onNodeClick(node)"
-              (mouseenter)="onNodeMouseEnter(node)"
-              (mouseleave)="onNodeMouseLeave()">
-
-              <circle
-                r="30"
-                [attr.fill]="node.profile.profileImageUrl ? 'url(#img-' + node.id + ')' : '#1e3a8a'"
-                stroke="#fff"
-                stroke-width="3"
-                class="node-circle" />
-
-              @if (!node.profile.profileImageUrl) {
-                <text
-                  text-anchor="middle"
-                  dy=".3em"
-                  fill="white"
-                  font-size="14"
-                  font-weight="500"
-                  class="node-initials">
-                  {{ getProfileInitials(node.profile) }}
-                </text>
-              }
-            </g>
-          }
-        </g>
       </svg>
 
       <div class="node-cards">
         @for (node of nodes(); track node.id) {
-          <div
+          <mat-card
             class="node-card"
             [class.selected]="selectedNode() === node"
             [class.highlighted]="isNodeHighlighted(node)"
             [class.hovered]="hoveredNode() === node"
-            [style.left.px]="node.x - 60"
-            [style.top.px]="node.y + 45"
-            (click)="onNodeClick(node)">
+            [style.left.px]="node.x"
+            [style.top.px]="node.y"
+            (click)="onNodeClick(node)"
+            (mouseenter)="onNodeMouseEnter(node)"
+            (mouseleave)="onNodeMouseLeave()">
 
-            <div class="card-content">
-              <div class="profile-info">
-                <strong>{{ node.profile.firstname }} {{ node.profile.lastname }}</strong>
-                @if (node.profile.number) {
-                  <span class="profile-number">{{ node.profile.number }}</span>
+            <div class="card-header">
+              <div class="profile-avatar">
+                @if (node.profile.profileImageUrl) {
+                  <img [src]="node.profile.profileImageUrl" [alt]="node.profile.firstname + ' ' + node.profile.lastname">
+                } @else {
+                  <div class="avatar-placeholder">
+                    {{ getProfileInitials(node.profile) }}
+                  </div>
                 }
               </div>
-              @if (node.profile.status) {
-                <div class="profile-status">{{ node.profile.status }}</div>
-              }
+              <div class="profile-details">
+                <div class="profile-name">
+                  {{ node.profile.firstname }} {{ node.profile.lastname }}
+                  @if (node.profile.number) {
+                    <span class="profile-number">#{{ node.profile.number }}</span>
+                  }
+                </div>
+                @if (node.profile.status) {
+                  <div class="profile-status">
+                    <mat-icon>label</mat-icon>
+                    {{ node.profile.status }}
+                  </div>
+                }
+              </div>
             </div>
 
             @if (selectedNode() === node) {
+              <mat-divider></mat-divider>
               <div class="connections-list">
+                <div class="connections-header">
+                  <mat-icon>account_tree</mat-icon>
+                  <span>Beziehungen ({{ getLinksForNode(node).length }})</span>
+                </div>
                 @for (link of getLinksForNode(node); track link.connection.connection.id) {
                   <div class="connection-item">
-                    <div class="connection-header">
+                    <div class="connection-info">
                       <mat-icon
                         [style.color]="getLinkColor(link)"
                         class="connection-type-icon">
                         {{ connectionTypeIcons[link.connection.connection.connectionType] }}
                       </mat-icon>
-                      <span class="connection-label">
-                        {{ connectionTypeLabels[link.connection.connection.connectionType] }}
-                      </span>
-                    </div>
-                    <div class="connection-target">
-                      @if (link.source.id === node.id) {
-                        → {{ link.target.profile.firstname }} {{ link.target.profile.lastname }}
-                      } @else {
-                        ← {{ link.source.profile.firstname }} {{ link.source.profile.lastname }}
-                      }
+                      <div class="connection-details">
+                        <span class="connection-label">
+                          {{ connectionTypeLabels[link.connection.connection.connectionType] }}
+                        </span>
+                        <span class="connection-target">
+                          @if (link.source.id === node.id) {
+                            → {{ link.target.profile.firstname }} {{ link.target.profile.lastname }}
+                          } @else {
+                            ← {{ link.source.profile.firstname }} {{ link.source.profile.lastname }}
+                          }
+                        </span>
+                      </div>
                     </div>
                     <div class="connection-actions">
                       <button
@@ -140,7 +130,7 @@
                 }
               </div>
             }
-          </div>
+          </mat-card>
         }
       </div>
     </div>
