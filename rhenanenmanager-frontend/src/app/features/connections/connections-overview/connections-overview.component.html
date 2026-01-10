@@ -1,0 +1,133 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="toolbar-title">Beziehungen</span>
+  <span class="spacer"></span>
+
+  <button mat-icon-button (click)="toggleViewMode()" [matTooltip]="viewMode() === 'graph' ? 'Listenansicht' : 'Graphenansicht'">
+    <mat-icon>@if (viewMode() === 'graph') {list} @else {account_tree}</mat-icon>
+  </button>
+
+  <button mat-icon-button (click)="themeService.toggleTheme()">
+    <mat-icon>@if (themeService.isDark()) {light_mode} @else {dark_mode}</mat-icon>
+  </button>
+
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <mat-menu #userMenu="matMenu">
+    <div class="user-info">
+      <div class="user-name">{{ currentUser?.username }}</div>
+      <div class="user-role">{{ currentUser?.role }}</div>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Abmelden</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<div class="container">
+  <div class="header-section">
+    <div class="header-content">
+      <h1>Beziehungen im Corps</h1>
+      <p class="subtitle">
+        Visualisierung der Verbindungen zwischen Corpsbrüdern
+      </p>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+      Neue Beziehung
+    </button>
+  </div>
+
+  <div class="filter-section">
+    <h3>Filter nach Beziehungstyp</h3>
+    <mat-chip-listbox class="chip-list" multiple>
+      @for (type of connectionTypes; track type) {
+        <mat-chip-option
+          [selected]="isTypeSelected(type)"
+          (click)="toggleTypeFilter(type)"
+          [style.--chip-color]="getTypeColor(type)"
+          class="connection-chip">
+          <mat-icon>{{ isTypeSelected(type) ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+          {{ getTypeLabel(type) }}
+        </mat-chip-option>
+      }
+    </mat-chip-listbox>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>Lade Beziehungen...</p>
+    </div>
+  } @else {
+    @if (viewMode() === 'graph') {
+      <app-connections-graph
+        [connections]="filteredConnections()"
+        (editConnection)="openEditDialog($event)"
+        (deleteConnection)="deleteConnection($event)">
+      </app-connections-graph>
+    } @else {
+      <div class="list-view">
+        @if (filteredConnections().length === 0) {
+          <mat-card class="empty-state">
+            <mat-card-content>
+              <mat-icon>link_off</mat-icon>
+              <h3>Keine Beziehungen gefunden</h3>
+              <p>Erstellen Sie eine neue Beziehung, um zu beginnen.</p>
+            </mat-card-content>
+          </mat-card>
+        } @else {
+          @for (item of filteredConnections(); track item.connection.id) {
+            <mat-card class="connection-card">
+              <mat-card-header>
+                <div mat-card-avatar class="connection-icon" [style.background-color]="getTypeColor(item.connection.connectionType)">
+                  <mat-icon>account_circle</mat-icon>
+                </div>
+                <mat-card-title>
+                  {{ item.fromProfile.firstname }} {{ item.fromProfile.lastname }}
+                  <mat-icon class="arrow-icon">arrow_forward</mat-icon>
+                  {{ item.toProfile.firstname }} {{ item.toProfile.lastname }}
+                </mat-card-title>
+                <mat-card-subtitle>
+                  <mat-chip [style.--chip-color]="getTypeColor(item.connection.connectionType)">
+                    {{ getTypeLabel(item.connection.connectionType) }}
+                  </mat-chip>
+                </mat-card-subtitle>
+              </mat-card-header>
+
+              <mat-card-content>
+                @if (item.connection.description) {
+                  <p class="description">{{ item.connection.description }}</p>
+                }
+                @if (item.connection.startDate) {
+                  <p class="date-info">
+                    <mat-icon>calendar_today</mat-icon>
+                    Seit {{ item.connection.startDate | date:'dd.MM.yyyy' }}
+                  </p>
+                }
+              </mat-card-content>
+
+              <mat-card-actions align="end">
+                <button mat-button (click)="openEditDialog(item)">
+                  <mat-icon>edit</mat-icon>
+                  Bearbeiten
+                </button>
+                <button mat-button color="warn" (click)="deleteConnection(item)">
+                  <mat-icon>delete</mat-icon>
+                  Löschen
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        }
+      </div>
+    }
+  }
+</div>

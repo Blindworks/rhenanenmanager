@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="016-insert-sample-users-and-profiles" author="rhenanenmanager">
+        <comment>Insert sample users and profiles for testing connections feature</comment>
+
+        <!-- Insert Sample Users -->
+        <!-- Password is 'password123' encoded with BCrypt -->
+        <insert tableName="user">
+            <column name="id" valueNumeric="100"/>
+            <column name="username" value="max.mueller"/>
+            <column name="email" value="max.mueller@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="firstname" value="Max"/>
+            <column name="lastname" value="Müller"/>
+            <column name="activated" valueBoolean="true"/>
+            <column name="account_locked" valueBoolean="false"/>
+            <column name="failed_logins" valueNumeric="0"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" valueNumeric="101"/>
+            <column name="username" value="paul.schmidt"/>
+            <column name="email" value="paul.schmidt@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="firstname" value="Paul"/>
+            <column name="lastname" value="Schmidt"/>
+            <column name="activated" valueBoolean="true"/>
+            <column name="account_locked" valueBoolean="false"/>
+            <column name="failed_logins" valueNumeric="0"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" valueNumeric="102"/>
+            <column name="username" value="felix.weber"/>
+            <column name="email" value="felix.weber@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="firstname" value="Felix"/>
+            <column name="lastname" value="Weber"/>
+            <column name="activated" valueBoolean="true"/>
+            <column name="account_locked" valueBoolean="false"/>
+            <column name="failed_logins" valueNumeric="0"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" valueNumeric="103"/>
+            <column name="username" value="lukas.fischer"/>
+            <column name="email" value="lukas.fischer@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="firstname" value="Lukas"/>
+            <column name="lastname" value="Fischer"/>
+            <column name="activated" valueBoolean="true"/>
+            <column name="account_locked" valueBoolean="false"/>
+            <column name="failed_logins" valueNumeric="0"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" valueNumeric="104"/>
+            <column name="username" value="jonas.wagner"/>
+            <column name="email" value="jonas.wagner@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="firstname" value="Jonas"/>
+            <column name="lastname" value="Wagner"/>
+            <column name="activated" valueBoolean="true"/>
+            <column name="account_locked" valueBoolean="false"/>
+            <column name="failed_logins" valueNumeric="0"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" valueNumeric="105"/>
+            <column name="username" value="emil.becker"/>
+            <column name="email" value="emil.becker@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="firstname" value="Emil"/>
+            <column name="lastname" value="Becker"/>
+            <column name="activated" valueBoolean="true"/>
+            <column name="account_locked" valueBoolean="false"/>
+            <column name="failed_logins" valueNumeric="0"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" valueNumeric="106"/>
+            <column name="username" value="leon.schulz"/>
+            <column name="email" value="leon.schulz@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="firstname" value="Leon"/>
+            <column name="lastname" value="Schulz"/>
+            <column name="activated" valueBoolean="true"/>
+            <column name="account_locked" valueBoolean="false"/>
+            <column name="failed_logins" valueNumeric="0"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" valueNumeric="107"/>
+            <column name="username" value="noah.hoffmann"/>
+            <column name="email" value="noah.hoffmann@example.com"/>
+            <column name="password" value="$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy"/>
+            <column name="firstname" value="Noah"/>
+            <column name="lastname" value="Hoffmann"/>
+            <column name="activated" valueBoolean="true"/>
+            <column name="account_locked" valueBoolean="false"/>
+            <column name="failed_logins" valueNumeric="0"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+
+        <!-- Insert Sample Profiles -->
+        <insert tableName="profile">
+            <column name="id" valueNumeric="100"/>
+            <column name="user_id" valueNumeric="100"/>
+            <column name="firstname" value="Max"/>
+            <column name="lastname" value="Müller"/>
+            <column name="email" value="max.mueller@example.com"/>
+            <column name="birth_date" value="1995-03-15"/>
+            <column name="birth_place" value="München"/>
+            <column name="picture_url" value="https://i.pravatar.cc/300?img=12"/>
+            <column name="deceased" valueBoolean="false"/>
+        </insert>
+
+        <insert tableName="profile">
+            <column name="id" valueNumeric="101"/>
+            <column name="user_id" valueNumeric="101"/>
+            <column name="firstname" value="Paul"/>
+            <column name="lastname" value="Schmidt"/>
+            <column name="email" value="paul.schmidt@example.com"/>
+            <column name="birth_date" value="1996-07-22"/>
+            <column name="birth_place" value="Hamburg"/>
+            <column name="picture_url" value="https://i.pravatar.cc/300?img=33"/>
+            <column name="deceased" valueBoolean="false"/>
+        </insert>
+
+        <insert tableName="profile">
+            <column name="id" valueNumeric="102"/>
+            <column name="user_id" valueNumeric="102"/>
+            <column name="firstname" value="Felix"/>
+            <column name="lastname" value="Weber"/>
+            <column name="email" value="felix.weber@example.com"/>
+            <column name="birth_date" value="1997-11-08"/>
+            <column name="birth_place" value="Berlin"/>
+            <column name="picture_url" value="https://i.pravatar.cc/300?img=54"/>
+            <column name="deceased" valueBoolean="false"/>
+        </insert>
+
+        <insert tableName="profile">
+            <column name="id" valueNumeric="103"/>
+            <column name="user_id" valueNumeric="103"/>
+            <column name="firstname" value="Lukas"/>
+            <column name="lastname" value="Fischer"/>
+            <column name="email" value="lukas.fischer@example.com"/>
+            <column name="birth_date" value="1998-02-14"/>
+            <column name="birth_place" value="Frankfurt"/>
+            <column name="picture_url" value="https://i.pravatar.cc/300?img=68"/>
+            <column name="deceased" valueBoolean="false"/>
+        </insert>
+
+        <insert tableName="profile">
+            <column name="id" valueNumeric="104"/>
+            <column name="user_id" valueNumeric="104"/>
+            <column name="firstname" value="Jonas"/>
+            <column name="lastname" value="Wagner"/>
+            <column name="email" value="jonas.wagner@example.com"/>
+            <column name="birth_date" value="1999-05-30"/>
+            <column name="birth_place" value="Köln"/>
+            <column name="picture_url" value="https://i.pravatar.cc/300?img=15"/>
+            <column name="deceased" valueBoolean="false"/>
+        </insert>
+
+        <insert tableName="profile">
+            <column name="id" valueNumeric="105"/>
+            <column name="user_id" valueNumeric="105"/>
+            <column name="firstname" value="Emil"/>
+            <column name="lastname" value="Becker"/>
+            <column name="email" value="emil.becker@example.com"/>
+            <column name="birth_date" value="2000-09-12"/>
+            <column name="birth_place" value="Stuttgart"/>
+            <column name="picture_url" value="https://i.pravatar.cc/300?img=59"/>
+            <column name="deceased" valueBoolean="false"/>
+        </insert>
+
+        <insert tableName="profile">
+            <column name="id" valueNumeric="106"/>
+            <column name="user_id" valueNumeric="106"/>
+            <column name="firstname" value="Leon"/>
+            <column name="lastname" value="Schulz"/>
+            <column name="email" value="leon.schulz@example.com"/>
+            <column name="birth_date" value="2001-12-20"/>
+            <column name="birth_place" value="Düsseldorf"/>
+            <column name="picture_url" value="https://i.pravatar.cc/300?img=70"/>
+            <column name="deceased" valueBoolean="false"/>
+        </insert>
+
+        <insert tableName="profile">
+            <column name="id" valueNumeric="107"/>
+            <column name="user_id" valueNumeric="107"/>
+            <column name="firstname" value="Noah"/>
+            <column name="lastname" value="Hoffmann"/>
+            <column name="email" value="noah.hoffmann@example.com"/>
+            <column name="birth_date" value="2002-04-18"/>
+            <column name="birth_place" value="Leipzig"/>
+            <column name="picture_url" value="https://i.pravatar.cc/300?img=31"/>
+            <column name="deceased" valueBoolean="false"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="profile">
+                <where>id BETWEEN 100 AND 107</where>
+            </delete>
+            <delete tableName="user">
+                <where>id BETWEEN 100 AND 107</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

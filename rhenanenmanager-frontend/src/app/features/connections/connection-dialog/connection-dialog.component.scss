@@ -1,0 +1,168 @@
+mat-dialog-content {
+  padding: 24px;
+  min-width: 500px;
+
+  @media (max-width: 768px) {
+    min-width: 300px;
+  }
+}
+
+.connection-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .full-width {
+    width: 100%;
+  }
+
+  .arrow-divider {
+    display: flex;
+    justify-content: center;
+    margin: -8px 0;
+
+    mat-icon {
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    .date-field {
+      width: 100%;
+    }
+  }
+
+  .info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(30, 58, 138, 0.05);
+    border-radius: 6px;
+    border-left: 3px solid #1e3a8a;
+
+    mat-icon {
+      color: #1e3a8a;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: rgba(0, 0, 0, 0.7);
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+.profile-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  span {
+    font-size: 0.875rem;
+  }
+
+  .profile-number {
+    margin-left: auto;
+    padding: 2px 6px;
+    background: rgba(30, 58, 138, 0.1);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+  }
+}
+
+.connection-type-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  span {
+    font-size: 0.875rem;
+  }
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+  button {
+    min-width: 100px;
+
+    mat-spinner {
+      display: inline-block;
+      margin-right: 8px;
+    }
+  }
+}
+
+// Dark mode support
+:host-context(.dark-theme) {
+  .connection-form {
+    .arrow-divider {
+      mat-icon {
+        color: rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    .info-box {
+      background: rgba(96, 165, 250, 0.1);
+      border-left-color: #60a5fa;
+
+      mat-icon {
+        color: #60a5fa;
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+
+  .profile-option {
+    mat-icon {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .profile-number {
+      background: rgba(96, 165, 250, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  mat-dialog-actions {
+    border-top-color: rgba(255, 255, 255, 0.12);
+  }
+}

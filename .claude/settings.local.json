@@ -33,7 +33,13 @@
       "Bash(curl:*)",
       "Bash(powershell -Command \"Start-Sleep -Seconds 20\")",
       "Bash(cmd.exe /c mvnw.cmd spring-boot:run)",
-      "Bash(powershell -Command:*)"
+      "Bash(powershell -Command:*)",
+      "Bash(./mvnw.cmd:*)",
+      "Bash(mvn clean compile:*)",
+      "Bash(npm run build:*)",
+      "Bash(./mvnw clean compile:*)",
+      "Bash(ipconfig:*)",
+      "mcp__MCP_DOCKER__puppeteer_navigate"
     ]
   }
 }

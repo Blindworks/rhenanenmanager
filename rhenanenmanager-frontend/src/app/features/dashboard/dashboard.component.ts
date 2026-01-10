@@ -47,6 +47,12 @@ export class DashboardComponent {
       route: '/members'
     },
     {
+      icon: 'account_tree',
+      title: 'Beziehungen',
+      description: 'Visualisierung der Verbindungen zwischen Corpsbrüdern',
+      route: '/connections'
+    },
+    {
       icon: 'sports_martial_arts',
       title: 'Mensur-Tracking',
       description: 'Protokollieren und auswerten Sie Mensuren',

@@ -40,7 +40,14 @@
     <!-- v1.0: Article Entry for Rhenanenruf Glossar -->
     <include file="db/changelog/changesets/v1.0/013-create-article-entry-table.xml"/>
 
+    <!-- v1.0: Connection table for member relationships -->
+    <include file="db/changelog/changesets/v1.0/014-create-connection-table.xml"/>
+
     <!-- v1.0: Data fixes -->
     <include file="db/changelog/changesets/v1.0/015-fix-role-names.xml"/>
+
+    <!-- v1.0: Sample data for testing -->
+    <include file="db/changelog/changesets/v1.0/016-insert-sample-users-and-profiles.xml"/>
+    <include file="db/changelog/changesets/v1.0/017-insert-sample-connections.xml"/>
 
 </databaseChangeLog>

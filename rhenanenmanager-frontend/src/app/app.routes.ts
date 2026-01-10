@@ -25,5 +25,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/rhenanenruf-glossar/rhenanenruf-glossar.routes').then(m => m.rhenanenrufGlossarRoutes),
     canActivate: [authGuard]
   },
+  {
+    path: 'connections',
+    loadChildren: () => import('./features/connections/connections.routes').then(m => m.CONNECTIONS_ROUTES),
+    canActivate: [authGuard]
+  },
   { path: '**', redirectTo: '/' }
 ];

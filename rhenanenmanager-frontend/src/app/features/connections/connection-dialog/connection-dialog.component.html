@@ -1,0 +1,145 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="connection-form">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Von (Quelle)</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="fromProfile"
+        [matAutocomplete]="autoFrom"
+        placeholder="Suche nach Name oder Nummer..."
+        [disabled]="isEditMode">
+      <mat-icon matPrefix>person</mat-icon>
+      @if (searchingFrom()) {
+        <mat-spinner matSuffix diameter="20"></mat-spinner>
+      }
+      <mat-autocomplete #autoFrom="matAutocomplete" [displayWith]="displayProfile">
+        @for (profile of fromProfiles(); track profile.id) {
+          <mat-option [value]="profile">
+            <div class="profile-option">
+              <mat-icon>account_circle</mat-icon>
+              <span>{{ profile.firstname }} {{ profile.lastname }}</span>
+              @if (profile.number) {
+                <span class="profile-number">{{ profile.number }}</span>
+              }
+            </div>
+          </mat-option>
+        }
+      </mat-autocomplete>
+      @if (form.get('fromProfile')?.hasError('required') && form.get('fromProfile')?.touched) {
+        <mat-error>Bitte wählen Sie ein Mitglied aus</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="arrow-divider">
+      <mat-icon>arrow_downward</mat-icon>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Beziehungstyp</mat-label>
+      <mat-select formControlName="connectionType">
+        @for (type of connectionTypes; track type) {
+          <mat-option [value]="type">
+            <div class="connection-type-option">
+              <mat-icon>{{ connectionTypeIcons[type] }}</mat-icon>
+              <span>{{ connectionTypeLabels[type] }}</span>
+            </div>
+          </mat-option>
+        }
+      </mat-select>
+      <mat-icon matPrefix>link</mat-icon>
+      @if (form.get('connectionType')?.hasError('required') && form.get('connectionType')?.touched) {
+        <mat-error>Bitte wählen Sie einen Beziehungstyp</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="arrow-divider">
+      <mat-icon>arrow_downward</mat-icon>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Zu (Ziel)</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="toProfile"
+        [matAutocomplete]="autoTo"
+        placeholder="Suche nach Name oder Nummer..."
+        [disabled]="isEditMode">
+      <mat-icon matPrefix>person</mat-icon>
+      @if (searchingTo()) {
+        <mat-spinner matSuffix diameter="20"></mat-spinner>
+      }
+      <mat-autocomplete #autoTo="matAutocomplete" [displayWith]="displayProfile">
+        @for (profile of toProfiles(); track profile.id) {
+          <mat-option [value]="profile">
+            <div class="profile-option">
+              <mat-icon>account_circle</mat-icon>
+              <span>{{ profile.firstname }} {{ profile.lastname }}</span>
+              @if (profile.number) {
+                <span class="profile-number">{{ profile.number }}</span>
+              }
+            </div>
+          </mat-option>
+        }
+      </mat-autocomplete>
+      @if (form.get('toProfile')?.hasError('required') && form.get('toProfile')?.touched) {
+        <mat-error>Bitte wählen Sie ein Mitglied aus</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Beschreibung (optional)</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        rows="3"
+        placeholder="Zusätzliche Informationen zur Beziehung..."></textarea>
+      <mat-icon matPrefix>description</mat-icon>
+    </mat-form-field>
+
+    <div class="date-row">
+      <mat-form-field appearance="outline" class="date-field">
+        <mat-label>Beginn (optional)</mat-label>
+        <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+        <mat-icon matPrefix>event</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="date-field">
+        <mat-label>Ende (optional)</mat-label>
+        <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+        <mat-icon matPrefix>event</mat-icon>
+      </mat-form-field>
+    </div>
+
+    @if (isEditMode) {
+      <div class="info-box">
+        <mat-icon>info</mat-icon>
+        <p>Die Mitglieder (Von/Zu) können bei bestehenden Beziehungen nicht geändert werden.
+        Um eine andere Verbindung zu erstellen, löschen Sie diese Beziehung und erstellen Sie eine neue.</p>
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" [disabled]="loading()">
+    Abbrechen
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="loading()">
+    @if (loading()) {
+      <mat-spinner diameter="20"></mat-spinner>
+    }
+    {{ isEditMode ? 'Speichern' : 'Erstellen' }}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="017-insert-sample-connections" author="rhenanenmanager">
+        <comment>Insert sample connections between profiles to demonstrate the connections feature</comment>
+
+        <!-- Leibbursch-Leibfuchs Beziehungen (Traditionelle Corps-Mentorschaft) -->
+        <!-- Max Müller (100) ist Leibbursch von Paul Schmidt (101) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="1"/>
+            <column name="from_profile_id" valueNumeric="100"/>
+            <column name="to_profile_id" valueNumeric="101"/>
+            <column name="relation_type" value="LEIBBURSCH"/>
+            <column name="start_date" value="2016-10-15"/>
+            <column name="description" value="Traditionelle Leibbursch-Leibfuchs Beziehung seit der Reception"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Paul Schmidt (101) ist Leibfuchs von Max Müller (100) - Gegenrichtung -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="2"/>
+            <column name="from_profile_id" valueNumeric="101"/>
+            <column name="to_profile_id" valueNumeric="100"/>
+            <column name="relation_type" value="LEIBFUCHS"/>
+            <column name="start_date" value="2016-10-15"/>
+            <column name="description" value="Leibfuchs unter der Leitung seines Leibburschen"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Paul Schmidt (101) ist Leibbursch von Felix Weber (102) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="3"/>
+            <column name="from_profile_id" valueNumeric="101"/>
+            <column name="to_profile_id" valueNumeric="102"/>
+            <column name="relation_type" value="LEIBBURSCH"/>
+            <column name="start_date" value="2017-10-20"/>
+            <column name="description" value="Mentorschaft in der zweiten Generation"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Felix Weber (102) ist Leibfuchs von Paul Schmidt (101) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="4"/>
+            <column name="from_profile_id" valueNumeric="102"/>
+            <column name="to_profile_id" valueNumeric="101"/>
+            <column name="relation_type" value="LEIBFUCHS"/>
+            <column name="start_date" value="2017-10-20"/>
+            <column name="description" value="Leibfuchs der zweiten Generation"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Felix Weber (102) ist Leibbursch von Lukas Fischer (103) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="5"/>
+            <column name="from_profile_id" valueNumeric="102"/>
+            <column name="to_profile_id" valueNumeric="103"/>
+            <column name="relation_type" value="LEIBBURSCH"/>
+            <column name="start_date" value="2018-10-12"/>
+            <column name="description" value="Weitergabe der Corps-Tradition"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Lukas Fischer (103) ist Leibfuchs von Felix Weber (102) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="6"/>
+            <column name="from_profile_id" valueNumeric="103"/>
+            <column name="to_profile_id" valueNumeric="102"/>
+            <column name="relation_type" value="LEIBFUCHS"/>
+            <column name="start_date" value="2018-10-12"/>
+            <column name="description" value="Teil der Leibbursch-Kette"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Lukas Fischer (103) ist Leibbursch von Jonas Wagner (104) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="7"/>
+            <column name="from_profile_id" valueNumeric="103"/>
+            <column name="to_profile_id" valueNumeric="104"/>
+            <column name="relation_type" value="LEIBBURSCH"/>
+            <column name="start_date" value="2019-10-18"/>
+            <column name="description" value="Jüngste aktive Leibbursch-Beziehung"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Jonas Wagner (104) ist Leibfuchs von Lukas Fischer (103) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="8"/>
+            <column name="from_profile_id" valueNumeric="104"/>
+            <column name="to_profile_id" valueNumeric="103"/>
+            <column name="relation_type" value="LEIBFUCHS"/>
+            <column name="start_date" value="2019-10-18"/>
+            <column name="description" value="Aktive Leibfuchs-Beziehung"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Mentor-Mentee Beziehungen (Ergänzende Förderung) -->
+        <!-- Max Müller (100) ist Mentor von Felix Weber (102) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="9"/>
+            <column name="from_profile_id" valueNumeric="100"/>
+            <column name="to_profile_id" valueNumeric="102"/>
+            <column name="relation_type" value="MENTOR"/>
+            <column name="start_date" value="2018-03-01"/>
+            <column name="description" value="Zusätzliche Mentorschaft für akademische Fragen"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Felix Weber (102) ist Mentee von Max Müller (100) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="10"/>
+            <column name="from_profile_id" valueNumeric="102"/>
+            <column name="to_profile_id" valueNumeric="100"/>
+            <column name="relation_type" value="MENTEE"/>
+            <column name="start_date" value="2018-03-01"/>
+            <column name="description" value="Erhält Unterstützung in akademischen Fragen"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Paul Schmidt (101) ist Mentor von Jonas Wagner (104) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="11"/>
+            <column name="from_profile_id" valueNumeric="101"/>
+            <column name="to_profile_id" valueNumeric="104"/>
+            <column name="relation_type" value="MENTOR"/>
+            <column name="start_date" value="2020-01-15"/>
+            <column name="description" value="Berufliche Orientierung und Karriereberatung"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Jonas Wagner (104) ist Mentee von Paul Schmidt (101) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="12"/>
+            <column name="from_profile_id" valueNumeric="104"/>
+            <column name="to_profile_id" valueNumeric="101"/>
+            <column name="relation_type" value="MENTEE"/>
+            <column name="start_date" value="2020-01-15"/>
+            <column name="description" value="Erhält Karriereberatung"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Freundschaftsbeziehungen (Bidirektional) -->
+        <!-- Max Müller (100) und Paul Schmidt (101) sind Freunde -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="13"/>
+            <column name="from_profile_id" valueNumeric="100"/>
+            <column name="to_profile_id" valueNumeric="101"/>
+            <column name="relation_type" value="FREUNDSCHAFT"/>
+            <column name="start_date" value="2016-10-15"/>
+            <column name="description" value="Enge Freundschaft über die Leibbursch-Beziehung hinaus"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Felix Weber (102) und Lukas Fischer (103) sind Freunde -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="14"/>
+            <column name="from_profile_id" valueNumeric="102"/>
+            <column name="to_profile_id" valueNumeric="103"/>
+            <column name="relation_type" value="FREUNDSCHAFT"/>
+            <column name="start_date" value="2018-11-20"/>
+            <column name="description" value="Gemeinsame Interessen und Aktivitäten"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Emil Becker (105) und Leon Schulz (106) sind Freunde -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="15"/>
+            <column name="from_profile_id" valueNumeric="105"/>
+            <column name="to_profile_id" valueNumeric="106"/>
+            <column name="relation_type" value="FREUNDSCHAFT"/>
+            <column name="start_date" value="2020-10-01"/>
+            <column name="description" value="Fuchsenfreundschaft aus dem gleichen Jahrgang"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Leon Schulz (106) und Noah Hoffmann (107) sind Freunde -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="16"/>
+            <column name="from_profile_id" valueNumeric="106"/>
+            <column name="to_profile_id" valueNumeric="107"/>
+            <column name="relation_type" value="FREUNDSCHAFT"/>
+            <column name="start_date" value="2021-10-15"/>
+            <column name="description" value="Enge Verbindung seit der gemeinsamen Reception"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Bruderschaftsbeziehungen (Bidirektional - Corps-Brüderlichkeit) -->
+        <!-- Max Müller (100) und Felix Weber (102) sind Bundesbrüder -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="17"/>
+            <column name="from_profile_id" valueNumeric="100"/>
+            <column name="to_profile_id" valueNumeric="102"/>
+            <column name="relation_type" value="BRUDERSCHAFT"/>
+            <column name="start_date" value="2017-05-20"/>
+            <column name="description" value="Bundesbrüder durch gemeinsame Corps-Zugehörigkeit"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Paul Schmidt (101) und Lukas Fischer (103) sind Bundesbrüder -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="18"/>
+            <column name="from_profile_id" valueNumeric="101"/>
+            <column name="to_profile_id" valueNumeric="103"/>
+            <column name="relation_type" value="BRUDERSCHAFT"/>
+            <column name="start_date" value="2018-05-15"/>
+            <column name="description" value="Verbindung durch Corps-Bruderschaft"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Jonas Wagner (104) und Emil Becker (105) sind Bundesbrüder -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="19"/>
+            <column name="from_profile_id" valueNumeric="104"/>
+            <column name="to_profile_id" valueNumeric="105"/>
+            <column name="relation_type" value="BRUDERSCHAFT"/>
+            <column name="start_date" value="2020-05-10"/>
+            <column name="description" value="Bruderschaft der jüngeren Generation"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Emil Becker (105) und Noah Hoffmann (107) sind Bundesbrüder -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="20"/>
+            <column name="from_profile_id" valueNumeric="105"/>
+            <column name="to_profile_id" valueNumeric="107"/>
+            <column name="relation_type" value="BRUDERSCHAFT"/>
+            <column name="start_date" value="2021-05-22"/>
+            <column name="description" value="Aktive Bundesbrüder"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Zusätzliche Querverbindungen für komplexeres Netzwerk -->
+        <!-- Max Müller (100) ist Mentor von Jonas Wagner (104) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="21"/>
+            <column name="from_profile_id" valueNumeric="100"/>
+            <column name="to_profile_id" valueNumeric="104"/>
+            <column name="relation_type" value="MENTOR"/>
+            <column name="start_date" value="2021-02-01"/>
+            <column name="description" value="Generationsübergreifende Mentorschaft"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Jonas Wagner (104) ist Mentee von Max Müller (100) -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="22"/>
+            <column name="from_profile_id" valueNumeric="104"/>
+            <column name="to_profile_id" valueNumeric="100"/>
+            <column name="relation_type" value="MENTEE"/>
+            <column name="start_date" value="2021-02-01"/>
+            <column name="description" value="Erhält Rat von einem erfahrenen Corpsbruder"/>
+            <column name="bidirectional" valueBoolean="false"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <!-- Lukas Fischer (103) und Jonas Wagner (104) sind Freunde -->
+        <insert tableName="connection">
+            <column name="id" valueNumeric="23"/>
+            <column name="from_profile_id" valueNumeric="103"/>
+            <column name="to_profile_id" valueNumeric="104"/>
+            <column name="relation_type" value="FREUNDSCHAFT"/>
+            <column name="start_date" value="2019-10-18"/>
+            <column name="description" value="Freundschaft parallel zur Leibbursch-Beziehung"/>
+            <column name="bidirectional" valueBoolean="true"/>
+            <column name="created_by_id" valueNumeric="1"/>
+        </insert>
+
+        <rollback>
+            <delete tableName="connection">
+                <where>id BETWEEN 1 AND 23</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

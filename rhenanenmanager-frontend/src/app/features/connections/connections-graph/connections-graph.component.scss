@@ -1,0 +1,428 @@
+.graph-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 16px;
+  text-align: center;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: rgba(0, 0, 0, 0.3);
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+  }
+}
+
+.graph-container {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 58, 138, 0.02) 0%,
+    rgba(124, 58, 237, 0.02) 100%
+  );
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .graph-svg {
+    display: block;
+    user-select: none;
+
+    .links {
+      .link {
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.highlighted {
+          stroke-width: 3;
+          stroke-opacity: 1;
+        }
+
+        &:hover {
+          stroke-width: 3;
+          stroke-opacity: 0.8;
+        }
+      }
+    }
+
+    .nodes {
+      .node {
+        cursor: move;
+        transition: all 0.2s ease;
+
+        .node-circle {
+          transition: all 0.2s ease;
+        }
+
+        .node-initials {
+          pointer-events: none;
+          user-select: none;
+        }
+
+        &:hover .node-circle {
+          stroke-width: 4;
+          filter: brightness(1.1);
+        }
+
+        &.selected .node-circle {
+          stroke: #f59e0b;
+          stroke-width: 5;
+          filter: brightness(1.2);
+        }
+
+        &.highlighted .node-circle {
+          stroke: #06b6d4;
+          stroke-width: 4;
+        }
+      }
+    }
+  }
+
+  .node-cards {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    .node-card {
+      position: absolute;
+      width: 120px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      padding: 8px;
+      font-size: 0.75rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.2s ease;
+      pointer-events: auto;
+      cursor: pointer;
+
+      &.hovered {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &.selected {
+        opacity: 1;
+        transform: translateY(0);
+        width: 280px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        border: 2px solid #f59e0b;
+        z-index: 10;
+      }
+
+      &.highlighted {
+        opacity: 0.8;
+        transform: translateY(0);
+      }
+
+      .card-content {
+        .profile-info {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 4px;
+
+          strong {
+            font-size: 0.875rem;
+            color: rgba(0, 0, 0, 0.87);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .profile-number {
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 500;
+            background: rgba(30, 58, 138, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+          }
+        }
+
+        .profile-status {
+          font-size: 0.75rem;
+          color: rgba(0, 0, 0, 0.6);
+          margin-top: 2px;
+        }
+      }
+
+      .connections-list {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        max-height: 200px;
+        overflow-y: auto;
+
+        .connection-item {
+          padding: 8px;
+          margin-bottom: 8px;
+          background: rgba(0, 0, 0, 0.02);
+          border-radius: 6px;
+          border-left: 3px solid transparent;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: translateX(2px);
+          }
+
+          .connection-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+
+            .connection-type-icon {
+              font-size: 16px;
+              width: 16px;
+              height: 16px;
+            }
+
+            .connection-label {
+              font-size: 0.75rem;
+              font-weight: 500;
+              color: rgba(0, 0, 0, 0.87);
+            }
+          }
+
+          .connection-target {
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.7);
+            margin-left: 22px;
+            margin-bottom: 4px;
+          }
+
+          .connection-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 4px;
+            margin-top: 6px;
+
+            button {
+              width: 28px;
+              height: 28px;
+
+              mat-icon {
+                font-size: 16px;
+                width: 16px;
+                height: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.graph-legend {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 16px 0;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  .legend-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+        transform: translateX(4px);
+      }
+
+      .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .legend-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      span {
+        font-size: 0.875rem;
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+  }
+
+  .legend-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(30, 58, 138, 0.05);
+    border-radius: 6px;
+    border-left: 3px solid #1e3a8a;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      color: #1e3a8a;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    span {
+      font-size: 0.875rem;
+      color: rgba(0, 0, 0, 0.7);
+      line-height: 1.5;
+    }
+  }
+}
+
+// Dark mode support
+:host-context(.dark-theme) {
+  .empty-state {
+    mat-icon {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .graph-container {
+    background: linear-gradient(
+      135deg,
+      rgba(96, 165, 250, 0.05) 0%,
+      rgba(167, 139, 250, 0.05) 100%
+    );
+
+    .node-cards {
+      .node-card {
+        background: #1e293b;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+
+        &.selected {
+          border-color: #f59e0b;
+        }
+
+        .card-content {
+          .profile-info {
+            strong {
+              color: rgba(255, 255, 255, 0.87);
+            }
+
+            .profile-number {
+              color: rgba(255, 255, 255, 0.6);
+              background: rgba(96, 165, 250, 0.2);
+            }
+          }
+
+          .profile-status {
+            color: rgba(255, 255, 255, 0.6);
+          }
+        }
+
+        .connections-list {
+          border-top-color: rgba(255, 255, 255, 0.12);
+
+          .connection-item {
+            background: rgba(255, 255, 255, 0.05);
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.08);
+            }
+
+            .connection-header {
+              .connection-label {
+                color: rgba(255, 255, 255, 0.87);
+              }
+            }
+
+            .connection-target {
+              color: rgba(255, 255, 255, 0.7);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .graph-legend {
+    background: #1e293b;
+
+    h4 {
+      color: rgba(255, 255, 255, 0.87);
+    }
+
+    .legend-items {
+      .legend-item {
+        background: rgba(255, 255, 255, 0.05);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        span {
+          color: rgba(255, 255, 255, 0.87);
+        }
+      }
+    }
+
+    .legend-hint {
+      background: rgba(96, 165, 250, 0.1);
+      border-left-color: #60a5fa;
+
+      mat-icon {
+        color: #60a5fa;
+      }
+
+      span {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+}
