@@ -40,4 +40,7 @@
     <!-- v1.0: Article Entry for Rhenanenruf Glossar -->
     <include file="db/changelog/changesets/v1.0/013-create-article-entry-table.xml"/>
 
+    <!-- v1.0: Data fixes -->
+    <include file="db/changelog/changesets/v1.0/015-fix-role-names.xml"/>
+
 </databaseChangeLog>

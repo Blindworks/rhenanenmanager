@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="015-fix-role-names" author="rhenanenmanager">
+        <comment>Fix role names to ensure correct casing (all uppercase)</comment>
+
+        <!-- Fix ROLE_ADMIN (in case it's ROLE_Admin or any other variant) -->
+        <update tableName="role">
+            <column name="name" value="ROLE_ADMIN"/>
+            <where>UPPER(name) = 'ROLE_ADMIN' AND name != 'ROLE_ADMIN'</where>
+        </update>
+
+        <!-- Fix ROLE_USER -->
+        <update tableName="role">
+            <column name="name" value="ROLE_USER"/>
+            <where>UPPER(name) = 'ROLE_USER' AND name != 'ROLE_USER'</where>
+        </update>
+
+        <!-- Fix ROLE_MODERATOR -->
+        <update tableName="role">
+            <column name="name" value="ROLE_MODERATOR"/>
+            <where>UPPER(name) = 'ROLE_MODERATOR' AND name != 'ROLE_MODERATOR'</where>
+        </update>
+
+        <rollback>
+            <comment>No rollback - fixing data integrity</comment>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

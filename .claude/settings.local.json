@@ -30,7 +30,10 @@
       "Bash(mysql:*)",
       "mcp__MCP_DOCKER__browser_navigate",
       "mcp__MCP_DOCKER__browser_install",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(powershell -Command \"Start-Sleep -Seconds 20\")",
+      "Bash(cmd.exe /c mvnw.cmd spring-boot:run)",
+      "Bash(powershell -Command:*)"
     ]
   }
 }

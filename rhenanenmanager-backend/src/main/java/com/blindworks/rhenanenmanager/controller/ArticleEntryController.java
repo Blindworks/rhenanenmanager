@@ -32,7 +32,7 @@ public class ArticleEntryController {
     private final ArticleEntryService articleEntryService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @Operation(summary = "Get all articles", description = "Get all articles with pagination")
     public ResponseEntity<Page<ArticleEntryResponse>> getAllArticles(
             @RequestParam(defaultValue = "0") int page,
@@ -44,7 +44,7 @@ public class ArticleEntryController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @Operation(summary = "Get article by ID", description = "Get a specific article by its ID")
     public ResponseEntity<ArticleEntryResponse> getArticleById(@PathVariable Long id) {
         log.info("GET /api/articles/{}", id);
@@ -53,7 +53,7 @@ public class ArticleEntryController {
     }
 
     @GetMapping("/year/{year}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @Operation(summary = "Get articles by year", description = "Get all articles from a specific year")
     public ResponseEntity<List<ArticleEntryResponse>> getArticlesByYear(@PathVariable Integer year) {
         log.info("GET /api/articles/year/{}", year);
@@ -62,7 +62,7 @@ public class ArticleEntryController {
     }
 
     @GetMapping("/category/{category}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @Operation(summary = "Get articles by category", description = "Get all articles from a specific category")
     public ResponseEntity<Page<ArticleEntryResponse>> getArticlesByCategory(
             @PathVariable String category,
@@ -75,7 +75,7 @@ public class ArticleEntryController {
     }
 
     @GetMapping("/search")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @Operation(summary = "Search articles", description = "Search articles by keyword in title or text")
     public ResponseEntity<Page<ArticleEntryResponse>> searchArticles(
             @RequestParam String keyword,
@@ -88,7 +88,7 @@ public class ArticleEntryController {
     }
 
     @GetMapping("/categories")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @Operation(summary = "Get all categories", description = "Get all distinct categories")
     public ResponseEntity<List<String>> getAllCategories() {
         log.info("GET /api/articles/categories");
@@ -97,7 +97,7 @@ public class ArticleEntryController {
     }
 
     @GetMapping("/years")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     @Operation(summary = "Get all years", description = "Get all distinct years")
     public ResponseEntity<List<Integer>> getAllYears() {
         log.info("GET /api/articles/years");
@@ -106,7 +106,7 @@ public class ArticleEntryController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @Operation(summary = "Create article", description = "Create a new article entry")
     public ResponseEntity<ArticleEntryResponse> createArticle(@Valid @RequestBody ArticleEntryRequest request) {
         log.info("POST /api/articles - title: {}", request.getTitle());
@@ -115,7 +115,7 @@ public class ArticleEntryController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @Operation(summary = "Update article", description = "Update an existing article entry")
     public ResponseEntity<ArticleEntryResponse> updateArticle(
             @PathVariable Long id,
@@ -126,7 +126,7 @@ public class ArticleEntryController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @Operation(summary = "Delete article", description = "Delete an article entry by ID")
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
         log.info("DELETE /api/articles/{}", id);

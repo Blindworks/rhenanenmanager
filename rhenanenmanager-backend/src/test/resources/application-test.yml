@@ -17,6 +17,9 @@ spring:
     console:
       enabled: true
 
+  liquibase:
+    enabled: false  # Disable Liquibase for tests (using H2 with ddl-auto: create-drop)
+
 app:
   jwt:
     secret: testSecretKeyForJWTTesting123456789012345678901234567890

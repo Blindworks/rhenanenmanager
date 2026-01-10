@@ -269,6 +269,6 @@ export class RhenanenrufGlossarComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return this.currentUser?.roles?.includes('ADMIN') || false;
+    return this.authService.isAdmin();
   }
 }
